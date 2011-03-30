@@ -26,7 +26,7 @@ public class Test {
 	
 	public static void main(String[] args) {
 		
-		System.out.println("Hello From github");
+		System.out.println("Hello From GitHub");
 		
 	}
 
