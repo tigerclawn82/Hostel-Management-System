@@ -26,7 +26,7 @@ public class Test {
 	
 	public static void main(String[] args) {
 		
-		ConstraintProcessor.foreignKeyProcessor(Student.class);
+		System.out.println("Hello From github");
 		
 	}
 
