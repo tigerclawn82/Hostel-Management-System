@@ -103,6 +103,7 @@ public class ServiceForm extends JPanel {
 			jComboBox1.setModel(new DefaultComboBoxModel(new Object[] { "Monthly", "Per Service" }));
 			jComboBox1.setDoubleBuffered(false);
 			jComboBox1.setBorder(null);
+			jComboBox1.setEditable(false);
 		}
 		return jComboBox1;
 	}
@@ -113,6 +114,7 @@ public class ServiceForm extends JPanel {
 			jComboBox0.setModel(new DefaultComboBoxModel(new Object[] { "Optional","Mendatory" }));
 			jComboBox0.setDoubleBuffered(false);
 			jComboBox0.setBorder(null);
+			jComboBox0.setEditable(false);
 		}
 		return jComboBox0;
 	}

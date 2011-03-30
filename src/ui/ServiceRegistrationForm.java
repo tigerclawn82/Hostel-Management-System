@@ -26,10 +26,11 @@ import dao.StudentDAO;
 public class ServiceRegistrationForm extends JPanel {
 
 	DefaultListModel availableServices = new DefaultListModel();
-	DefaultListModel selectedServices = new DefaultListModel();
+	public DefaultListModel selectedServices = new DefaultListModel();
+	Object[] mendatoryServices = null;
 
 	private static final long serialVersionUID = 1L;
-	private JTextField jTextField0;
+	public JTextField jTextField0;
 	private JLabel jLabel0;
 	private JList jList0;
 	private JScrollPane jScrollPane0;
@@ -57,7 +58,7 @@ public class ServiceRegistrationForm extends JPanel {
 		add(getJButton0(), new Constraints(new Leading(258, 81, 12, 12), new Leading(273, 24, 10, 10)));
 		add(getJLabel0(), new Constraints(new Leading(37, 12, 12), new Leading(30, 12, 12)));
 		add(getJTextField0(), new Constraints(new Leading(115, 118, 10, 10), new Leading(26, 24, 12, 12)));
-		add(getJButton1(), new Constraints(new Leading(261, 75, 10, 43), new Leading(26, 24, 12, 12)));
+		add(getJButton1(), new Constraints(new Leading(261, 10, 43), new Leading(26, 24, 12, 12)));
 		setSize(378, 327);
 	}
 
@@ -79,6 +80,12 @@ public class ServiceRegistrationForm extends JPanel {
 		if (jButton0 == null) {
 			jButton0 = new JButton();
 			jButton0.setText("Save");
+			jButton0.addMouseListener(new MouseAdapter() {
+	
+				public void mouseClicked(MouseEvent event) {
+					jButton0MouseMouseClicked(event);
+				}
+			});
 		}
 		return jButton0;
 	}
@@ -187,25 +194,45 @@ public class ServiceRegistrationForm extends JPanel {
 
 	public void performSearchAndPopulate() {
 
-		try {
+		if (clearBothLists()) {
+			
+			try {
 
-			if (new StudentDAO().isStudentIDExist(jTextField0.getText())) {
+				if (new StudentDAO().isStudentIDExist(jTextField0.getText())) {
 
-				populateAvailableServices();
-				populateSelectedeServices();
+					populateAvailableServices();
+					populateSelectedeServices();
+					populateMendatoryServices();
 
-			} else {
+				} else {
 
-				JOptionPane.showMessageDialog(null, "Student ID doesn't Exist!");
+					JOptionPane.showMessageDialog(null, "Student ID doesn't Exist!");
 
+				}
+
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
 			}
-
+			
+		}
+		
+	}
+	
+	public boolean clearBothLists(){
+		
+		try {
+			
+			availableServices.clear();
+			selectedServices.clear();
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			return false;
 		}
-
-
+		
+		return true;
 	}
 
 	private void jLabel1MouseMouseClicked(MouseEvent event) {
@@ -229,8 +256,16 @@ public class ServiceRegistrationForm extends JPanel {
 		
 		System.out.println("Left!");
 		
-		availableServices.addElement(jList1.getSelectedValue());
-		selectedServices.removeElement(jList1.getSelectedValue());
+		if (isMendatoryService(jList1.getSelectedValue().toString())) {
+			
+			JOptionPane.showMessageDialog(null, "Sorry! Mendatory Service cannot be De-Selected!");
+			
+		} else {
+
+			availableServices.addElement(jList1.getSelectedValue());
+			selectedServices.removeElement(jList1.getSelectedValue());
+			
+		}
 		
 	}
 
@@ -269,6 +304,12 @@ public class ServiceRegistrationForm extends JPanel {
 		jList1.setModel(selectedServices);
 
 	}
+	
+	public void populateMendatoryServices(){
+		
+		mendatoryServices = ServiceUtilities.getMendatoryServices();
+		
+	}
 
 	private void jButton1MouseMouseClicked(MouseEvent event) {
 		
@@ -279,6 +320,35 @@ public class ServiceRegistrationForm extends JPanel {
 	public boolean isNotAdded(String title) {
 		
 		return !selectedServices.contains(title);
+		
+	}
+	
+	public boolean isMendatoryService(String title){
+		
+		for (Object serviceTitle : mendatoryServices) {
+			
+			if (serviceTitle.equals(title)) {
+				
+				return true;
+				
+			}
+			
+		}
+		
+		return false;
+	}
+
+	private void jButton0MouseMouseClicked(MouseEvent event) {
+		
+		if (ServiceUtilities.updateStudentServices(jTextField0.getText(), selectedServices)) {
+			
+			JOptionPane.showMessageDialog(null, "Services are Updated!");
+			
+		} else {
+			
+			JOptionPane.showMessageDialog(null, "Sorry! Services Not Updated!");
+
+		}
 		
 	}
 

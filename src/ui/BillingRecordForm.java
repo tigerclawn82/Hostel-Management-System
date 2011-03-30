@@ -31,6 +31,7 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import utilities.FineUtilities;
 import utilities.ServiceUtilities;
 import dao.BillingRecordDAO;
 import dao.StudentDAO;
@@ -309,7 +310,7 @@ public class BillingRecordForm extends JPanel {
 
 				JOptionPane.showMessageDialog(null, "STUDENT ID EXIST!");
 				data = ServiceUtilities.servicesWithAmount(jTextField0.getText());
-				jTextField4.setText(String.valueOf(ServiceUtilities.getFineOfStudent(jTextField0.getText())));
+				jTextField4.setText(String.valueOf(FineUtilities.getFineOfStudent(jTextField0.getText())));
 				
 				jTextField2.setText(String.valueOf(getTotalAmount()));
 				

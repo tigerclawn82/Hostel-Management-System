@@ -13,27 +13,27 @@ public class Database {
 	private static Statement statement = null;
 	private static String URL = "jdbc:h2:/"+System.getProperty("user.dir")+"/HMS";
 	private static PreparedStatement pStatement = null;
-	
+
 	public static PreparedStatement getPreparedStatement(String sql) {
-		
+
 		if (openConnection()) {
-			
+
 			try {
-				
+
 				pStatement = connection.prepareStatement(sql);
-				
+
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
 				return null;
 			}
-			
+
 		} else {
 
 			return null;
-			
+
 		}
-		
+
 		return pStatement;
 	}
 
@@ -45,6 +45,33 @@ public class Database {
 
 				Class.forName("org.h2.Driver");
 				connection = DriverManager.getConnection(URL);
+
+				System.out.println("CONNECTED!!!");
+
+			} catch (Exception e) {
+
+				e.printStackTrace();
+				return false;
+			}
+
+		} else {
+
+			return true;
+		}
+
+
+		return true;
+	}
+	
+	public static boolean openConnection(boolean autoCommit){
+
+		if (connection==null) {
+
+			try {
+
+				Class.forName("org.h2.Driver");
+				connection = DriverManager.getConnection(URL);
+				connection.setAutoCommit(autoCommit);
 
 				System.out.println("CONNECTED!!!");
 
@@ -271,6 +298,45 @@ public class Database {
 
 				statement = connection.createStatement();
 				statement.execute(sql);
+
+			} else {
+
+				return false;
+
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return false;
+
+		} finally {
+
+			closeConnection();
+
+		}
+
+		return true;
+	}
+
+	public static boolean executeTransaction(String... queries){
+
+		StringBuilder sql = new StringBuilder();
+		//sql.append("BEGIN TRAN \n\n");
+
+		for (String query : queries) {
+
+			sql.append(query+";\n");
+
+		}
+
+		try {
+
+			if (openConnection(false)) {
+
+				statement = connection.createStatement();
+				statement.execute(sql.toString());
+				connection.commit();
 
 			} else {
 
