@@ -1,0 +1,8 @@
+package msg;
+
+public class Error {
+	
+	public static String STUDENT_REGSISTRATION_FAILED = "REGISTRATION FAILED! PLEASE CHECK THE FORM AGAIN!!!";
+	public static String SERVICE_REGISTRATION_FAILED = "CANNOT ADD THE SERVICE! PLEASE CHECK THE FORM AGAIN!!!";
+
+}
