@@ -50,9 +50,6 @@ public class Dashboard extends JFrame {
 
 	private JXTaskPaneContainer leftMenuContainer;
 	public static JTabbedPane mainWindow;
-
-	private JXTaskPane studentRegistration;
-
 	private JPopupMenu popupMenu = null;
 
 	public Dashboard() {
@@ -74,12 +71,32 @@ public class Dashboard extends JFrame {
 		if (popupMenu==null) {
 
 			popupMenu = new JPopupMenu();
-
-			popupMenu.add(new JButton("Popup Menu"));
+			popupMenu.add(refreshButton());
 
 		}
 
 		return popupMenu;
+	}
+
+	JButton buttonRefresh = null;
+	public JButton refreshButton(){
+
+		if (buttonRefresh==null) {
+
+			buttonRefresh = new JButton("Refresh");
+			buttonRefresh.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					studentRegistration.setCollapsed(true);
+					serviceRegistration.setCollapsed(true);
+				}
+			});
+
+		}
+
+		return buttonRefresh;
 	}
 
 	private JSplitPane getJSplitePane0() {
@@ -156,47 +173,41 @@ public class Dashboard extends JFrame {
 
 			leftMenuContainer = new JXTaskPaneContainer();
 			leftMenuContainer.add(getStudentTaskPane());
+			leftMenuContainer.add(getServiceTaskPane());
 
 		}
 
 		return leftMenuContainer;
 	}
 
-	private JXTaskPane getStudentTaskPane() {
+	private void initPopupMenu() {
 
-		if (studentRegistration==null) {
+		getPopupMenu();
 
-			ImageIcon iconRegistration = new IconProcess().resizeIcon("/images/Add-Green-Button-icon.png", 30,30);
-			studentRegistration = new JXTaskPane("REGISTRATION",iconRegistration);
-			studentRegistration.setCollapsed(true);
+		this.addMouseListener(new MouseAdapter() {
 
-			studentRegistration.add(studentRegistration());
+			public void mousePressed(MouseEvent e) {
+				checkPopup(e);
+			}
 
-		}
+			public void mouseClicked(MouseEvent e) {
+				checkPopup(e);
+				System.out.println("EVENT!!!");
+			}
 
-		return studentRegistration;
-	}
+			public void mouseReleased(MouseEvent e) {
+				checkPopup(e);
+			}
 
-	private JButton buttonStudentRegistration;
-	public JButton studentRegistration() {
+			private void checkPopup(MouseEvent e) {
+				if (e.isPopupTrigger()) {
 
-		if (buttonStudentRegistration==null) {
-
-			buttonStudentRegistration = new JButton("Register");
-
-			buttonStudentRegistration.addMouseListener(new MouseAdapter() {
-
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					// TODO Auto-generated method stub
-					openStudentRegistrationTab();
+					getPopupMenu().show(e.getComponent(), e.getX(), e.getY());
 				}
+			}
 
-			});
+		});
 
-		}
-
-		return buttonStudentRegistration;
 	}
 
 	public boolean processRegistrationChecks() {
@@ -205,19 +216,7 @@ public class Dashboard extends JFrame {
 
 			if (!new RegistrationUtilities().isMendatoryServicesAdded()) {
 
-				JOptionPane.showMessageDialog(null, "Sorry! Services are not Added!");
-
-				if (Dashboard.isNewTab("Mendatory Services")) {
-
-					Dashboard.mainWindow.addTab("Mendatory Services", new MendatoryServicesRegistrationForm());
-					System.out.println(Dashboard.mainWindow.indexOfTab("Registration"));
-
-				} else {
-
-					Dashboard.mainWindow.setSelectedIndex(Dashboard.mainWindow.indexOfTab("Mendatory Services"));
-
-				}
-
+				processServiceRegistration();
 				return false;
 			}
 
@@ -268,33 +267,20 @@ public class Dashboard extends JFrame {
 
 	}
 
-	private void initPopupMenu() {
+	public void processServiceRegistration(){
 
-		getPopupMenu();
+		JOptionPane.showMessageDialog(null, "Sorry! Services are not Added!");
 
-		this.addMouseListener(new MouseAdapter() {
+		if (Dashboard.isNewTab("Mendatory Services")) {
 
-			public void mousePressed(MouseEvent e) {
-				checkPopup(e);
-			}
+			Dashboard.mainWindow.addTab("Mendatory Services", new MendatoryServicesRegistrationForm());
+			System.out.println(Dashboard.mainWindow.indexOfTab("Registration"));
 
-			public void mouseClicked(MouseEvent e) {
-				checkPopup(e);
-				System.out.println("EVENT!!!");
-			}
+		} else {
 
-			public void mouseReleased(MouseEvent e) {
-				checkPopup(e);
-			}
+			Dashboard.mainWindow.setSelectedIndex(Dashboard.mainWindow.indexOfTab("Mendatory Services"));
 
-			private void checkPopup(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-
-					getPopupMenu().show(e.getComponent(), e.getX(), e.getY());
-				}
-			}
-
-		});
+		}
 
 	}
 
@@ -316,24 +302,6 @@ public class Dashboard extends JFrame {
 	private void jMenuItem0ActionActionPerformed(ActionEvent event) {
 
 		System.exit(ABORT);
-
-	}
-
-	public void openStudentRegistrationTab() {
-
-		if (processRegistrationChecks()) {
-
-			if (isNewTab("Registration")) {
-
-				mainWindow.addTab("Registration", new JScrollPane(new StudentForm()));
-
-			} else {
-
-				mainWindow.setSelectedIndex(mainWindow.indexOfTab("Registration"));
-
-			}
-
-		}
 
 	}
 
@@ -372,4 +340,159 @@ public class Dashboard extends JFrame {
 
 		});
 	}
+
+	/*
+	 * STUDENT REGISTRATION TASKPANE
+	 */
+	private JXTaskPane studentRegistration;
+	private JXTaskPane getStudentTaskPane() {
+
+		if (studentRegistration==null) {
+
+			ImageIcon iconRegistration = new IconProcess().resizeIcon("/images/Add-Green-Button-icon.png", 30,30);
+			studentRegistration = new JXTaskPane("Student",iconRegistration);
+			studentRegistration.setCollapsed(true);
+
+			studentRegistration.add(studentRegistration());
+			studentRegistration.add(studentSearch());
+
+		}
+
+		return studentRegistration;
+	}
+
+	private JButton buttonStudentRegistration;
+	public JButton studentRegistration() {
+
+		if (buttonStudentRegistration==null) {
+
+			buttonStudentRegistration = new JButton("Register");
+
+			buttonStudentRegistration.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					openStudentRegistrationTab();
+				}
+
+			});
+
+		}
+
+		return buttonStudentRegistration;
+	}
+
+	public void openStudentRegistrationTab() {
+
+		if (isNewTab("Registration")) {
+
+			if (processRegistrationChecks()) {
+
+				mainWindow.addTab("Registration", new JScrollPane(new StudentForm()));
+				mainWindow.setSelectedIndex(mainWindow.indexOfTab("Registration"));
+
+			}
+
+		} else {
+
+			mainWindow.setSelectedIndex(mainWindow.indexOfTab("Registration"));
+
+		}
+
+	}
+
+	private JButton buttonStudentSearch;
+	public JButton studentSearch() {
+
+		if (buttonStudentSearch==null) {
+
+			buttonStudentSearch = new JButton("Search");
+
+			buttonStudentSearch.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					openStudentSearchTab();
+				}
+
+			});
+
+		}
+
+		return buttonStudentSearch;
+	}
+
+	public void openStudentSearchTab(){
+
+		if (isNewTab("Search")) {
+
+			mainWindow.addTab("Search", new JScrollPane(new SearchStudentForm()));
+			mainWindow.setSelectedIndex(mainWindow.indexOfTab("Search"));
+
+		} else {
+
+			mainWindow.setSelectedIndex(mainWindow.indexOfTab("Search"));
+
+		}
+
+	}
+
+	/*
+	 * SERVICE REGISTRATION TASKPANE
+	 */
+
+	private JXTaskPane serviceRegistration;
+	private JXTaskPane getServiceTaskPane() {
+
+		if (serviceRegistration==null) {
+
+			ImageIcon iconRegistration = new IconProcess().resizeIcon("/images/Add-Green-Button-icon.png", 30,30);
+			serviceRegistration = new JXTaskPane("Service",iconRegistration);
+			serviceRegistration.setCollapsed(true);
+
+			serviceRegistration.add(serviceRegistration());
+
+		}
+
+		return serviceRegistration;
+	}
+
+	private JButton buttonServiceRegistration;
+	public JButton serviceRegistration() {
+
+		if (buttonServiceRegistration==null) {
+
+			buttonServiceRegistration = new JButton("Service Registration");
+			buttonServiceRegistration.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					openServiceRegistrationTab();
+				}
+
+			});
+
+		}
+
+		return buttonServiceRegistration;
+	}
+	
+	public void openServiceRegistrationTab(){
+
+		if (isNewTab("Service Registration")) {
+
+			mainWindow.addTab("Service Registration", new JScrollPane(new ServiceForm()));
+			mainWindow.setSelectedIndex(mainWindow.indexOfTab("Service Registration"));
+
+		} else {
+
+			mainWindow.setSelectedIndex(mainWindow.indexOfTab("Service Registration"));
+
+		}
+
+	}
+
 }
