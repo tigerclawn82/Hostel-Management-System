@@ -43,7 +43,6 @@ public class RoomDAO extends DAO<Room,Integer> {
 	
 	public Object[] availableRoomNOS() {
 		
-		Object[] availableRooms = null;
 		ArrayList<Integer> rooms = new ArrayList<Integer>();
 		
 		try {
@@ -60,8 +59,6 @@ public class RoomDAO extends DAO<Room,Integer> {
 				
 			}
 			
-			availableRooms = rooms.toArray();
-			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,7 +69,65 @@ public class RoomDAO extends DAO<Room,Integer> {
 			
 		}
 		
-		return availableRooms;
+		return rooms.toArray();
+	}
+	
+	public static boolean roomMigration(int fromRoom, int toRoom) {
+		
+		Room room = null;
+		
+		try {
+			
+			room = new RoomDAO().queryForId(fromRoom);
+			
+			if (room.isFull()) {
+				
+				room.setFull(false);
+				
+			}
+			
+			room.setCount(room.getCount()-1);
+			new RoomDAO().update(room);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+			
+		} finally {
+			
+			DataSource.closeConnection();
+			
+		}
+		
+		try {
+			
+			room = new RoomDAO().queryForId(toRoom);
+			
+			if (room.getCount()<room.getCapacity()) {
+
+				room.setCount(room.getCount()+1);
+
+			} else {
+
+				room.setFull(true);
+
+			}
+			
+			new RoomDAO().update(room);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+			
+		} finally {
+			
+			DataSource.closeConnection();
+			
+		}
+	
+		return true;
 	}
 
 }

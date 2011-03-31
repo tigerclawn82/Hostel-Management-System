@@ -40,11 +40,11 @@ import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 import org.jdesktop.swingx.JXDatePicker;
 
-import dao.StudentDAO;
-
 import utilities.StudentSearchUtilities;
 import bean.Qualification;
 import bean.Student;
+import dao.RoomDAO;
+import dao.StudentDAO;
 
 //VS4E -- DO NOT REMOVE THIS LINE!
 public class UpdateStudentForm extends JPanel {
@@ -131,7 +131,6 @@ public class UpdateStudentForm extends JPanel {
 	private JLabel jLabel22;
 	private JTextField jTextField18;
 	private JTextField jTextField19;
-	public JTextField jTextField20;
 	private JButton jButton1;
 	private JCheckBox jCheckBox6;
 	private JCheckBox jCheckBox7;
@@ -143,6 +142,7 @@ public class UpdateStudentForm extends JPanel {
 	private JButton jButton4;
 	
 	public JXDatePicker datePicker;
+	public JComboBox jComboBox2;
 	
 	public UpdateStudentForm() {
 
@@ -163,7 +163,7 @@ public class UpdateStudentForm extends JPanel {
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJPanel2(), new Constraints(new Leading(12, 576, 12, 12), new Leading(797, 100, 12, 12)));
+		add(getJPanel2(), new Constraints(new Leading(12, 12, 12), new Leading(797, 100, 12, 12)));
 		add(getJPanel1(), new Constraints(new Leading(12, 576, 12, 12), new Leading(432, 347, 12, 12)));
 		add(getJPanel0(), new Constraints(new Leading(14, 576, 10, 10), new Leading(88, 332, 12, 12)));
 		add(getJPanel3(), new Constraints(new Leading(15, 574, 12, 12), new Leading(14, 62, 12, 12)));
@@ -172,6 +172,25 @@ public class UpdateStudentForm extends JPanel {
 		add(getJButton4(), new Constraints(new Leading(466, 10, 10), new Leading(907, 10, 10)));
 		initButtonGroup1();
 		setSize(600, 950);
+	}
+
+	private JComboBox getJComboBox2() {
+		if (jComboBox2 == null) {
+			jComboBox2 = new JComboBox();
+			
+			try {
+				
+				jComboBox2.setModel(new DefaultComboBoxModel(new RoomDAO().availableRoomNOS()));
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+			jComboBox2.setDoubleBuffered(false);
+			jComboBox2.setBorder(null);
+		}
+		return jComboBox2;
 	}
 
 	private JButton getJButton4() {
@@ -297,17 +316,9 @@ public class UpdateStudentForm extends JPanel {
 		return jButton1;
 	}
 
-	private JTextField getJTextField20() {
-		if (jTextField20 == null) {
-			jTextField20 = new JTextField();
-		}
-		return jTextField20;
-	}
-
 	private JTextField getJTextField19() {
 		if (jTextField19 == null) {
 			jTextField19 = new JTextField();
-			jTextField19.setBorder(null);
 		}
 		return jTextField19;
 	}
@@ -315,7 +326,6 @@ public class UpdateStudentForm extends JPanel {
 	private JTextField getJTextField18() {
 		if (jTextField18 == null) {
 			jTextField18 = new JTextField();
-			jTextField18.setBorder(null);
 		}
 		return jTextField18;
 	}
@@ -420,6 +430,7 @@ public class UpdateStudentForm extends JPanel {
 			jPanel2 = new JPanel();
 			jPanel2.setBorder(BorderFactory.createTitledBorder(null, "Register Services", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new Font("Dialog",
 					Font.BOLD, 12), new Color(51, 51, 51)));
+			jPanel2.setEnabled(false);
 			jPanel2.setLayout(new GroupLayout());
 			jPanel2.add(getJCheckBox0(), new Constraints(new Leading(17, 10, 10), new Leading(21, 10, 10)));
 			jPanel2.add(getJCheckBox1(), new Constraints(new Leading(118, 78, 10, 10), new Leading(21, 8, 8)));
@@ -427,10 +438,7 @@ public class UpdateStudentForm extends JPanel {
 			jPanel2.add(getJCheckBox2(), new Constraints(new Leading(413, 56, 10, 10), new Leading(21, 36, 36)));
 			jPanel2.add(getJCheckBox3(), new Constraints(new Leading(413, 84, 8, 8), new Trailing(8, 49, 49)));
 			jPanel2.add(getJLabel21(), new Constraints(new Leading(235, 12, 12), new Leading(-6, 12, 12)));
-			jPanel2.add(getJTextField20(), new Constraints(new Leading(227, 70, 12, 12), new Leading(23, 26, 10, 10)));
-
-			jPanel2.setEnabled(false);
-
+			jPanel2.add(getJComboBox2(), new Constraints(new Leading(232, 60, 10, 274), new Leading(22, 12, 12)));
 		}
 		return jPanel2;
 	}
@@ -523,7 +531,6 @@ public class UpdateStudentForm extends JPanel {
 	private JTextField getJTextField17() {
 		if (jTextField17 == null) {
 			jTextField17 = new JTextField();
-			jTextField17.setBorder(null);
 		}
 		return jTextField17;
 	}
@@ -531,7 +538,6 @@ public class UpdateStudentForm extends JPanel {
 	private JTextField getJTextField16() {
 		if (jTextField16 == null) {
 			jTextField16 = new JTextField();
-			jTextField16.setBorder(null);
 		}
 		return jTextField16;
 	}
@@ -539,7 +545,6 @@ public class UpdateStudentForm extends JPanel {
 	private JTextField getJTextField15() {
 		if (jTextField15 == null) {
 			jTextField15 = new JTextField();
-			jTextField15.setBorder(null);
 		}
 		return jTextField15;
 	}
@@ -547,7 +552,6 @@ public class UpdateStudentForm extends JPanel {
 	private JTextField getJTextField14() {
 		if (jTextField14 == null) {
 			jTextField14 = new JTextField();
-			jTextField14.setBorder(null);
 		}
 		return jTextField14;
 	}
@@ -555,7 +559,6 @@ public class UpdateStudentForm extends JPanel {
 	private JTextField getJTextField7() {
 		if (jTextField7 == null) {
 			jTextField7 = new JTextField();
-			jTextField7.setBorder(null);
 		}
 		return jTextField7;
 	}
@@ -563,7 +566,6 @@ public class UpdateStudentForm extends JPanel {
 	private JTextField getJTextField4() {
 		if (jTextField4 == null) {
 			jTextField4 = new JTextField();
-			jTextField4.setBorder(null);
 		}
 		return jTextField4;
 	}
@@ -613,7 +615,6 @@ public class UpdateStudentForm extends JPanel {
 			jComboBox1 = new JComboBox();
 			jComboBox1.setModel(new DefaultComboBoxModel(new Object[] { "O +", "O -", "A +", "A -", "B +", "B -", "AB +", "AB -" }));
 			jComboBox1.setDoubleBuffered(false);
-			jComboBox1.setBorder(null);
 		}
 		return jComboBox1;
 	}
@@ -623,7 +624,6 @@ public class UpdateStudentForm extends JPanel {
 			jComboBox0 = new JComboBox();
 			jComboBox0.setModel(new DefaultComboBoxModel(new Object[] { "MALE","FEMALE" }));
 			jComboBox0.setDoubleBuffered(false);
-			jComboBox0.setBorder(null);
 		}
 		return jComboBox0;
 	}
@@ -743,7 +743,6 @@ public class UpdateStudentForm extends JPanel {
 	private JTextField getJTextField13() {
 		if (jTextField13 == null) {
 			jTextField13 = new JTextField();
-			jTextField13.setBorder(null);
 		}
 		return jTextField13;
 	}
@@ -751,7 +750,6 @@ public class UpdateStudentForm extends JPanel {
 	private JTextField getJTextField12() {
 		if (jTextField12 == null) {
 			jTextField12 = new JTextField();
-			jTextField12.setBorder(null);
 		}
 		return jTextField12;
 	}
@@ -759,7 +757,6 @@ public class UpdateStudentForm extends JPanel {
 	private JTextField getJTextField11() {
 		if (jTextField11 == null) {
 			jTextField11 = new JTextField();
-			jTextField11.setBorder(null);
 		}
 		return jTextField11;
 	}
@@ -767,7 +764,6 @@ public class UpdateStudentForm extends JPanel {
 	private JTextField getJTextField10() {
 		if (jTextField10 == null) {
 			jTextField10 = new JTextField();
-			jTextField10.setBorder(null);
 		}
 		return jTextField10;
 	}
@@ -782,7 +778,6 @@ public class UpdateStudentForm extends JPanel {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			jTextField9.setBorder(null);
 		}
 		return jTextField9;
 	}
@@ -799,7 +794,6 @@ public class UpdateStudentForm extends JPanel {
 				e.printStackTrace();
 			}
 
-			jTextField8.setBorder(null);
 		}
 		return jTextField8;
 	}
@@ -814,7 +808,6 @@ public class UpdateStudentForm extends JPanel {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			jTextField6.setBorder(null);
 			jTextField6.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent event) {
@@ -826,18 +819,19 @@ public class UpdateStudentForm extends JPanel {
 	}
 
 	private JTextField getJTextField5() {
+		
 		if (jTextField5 == null) {
+			
 			try {
 
 				jTextField5 = new JFormattedTextField(new MaskFormatter("##/##/####"));
+				jTextField5.setVisible(false);
 
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			jTextField5.setBorder(null);
 		}
-		jTextField5.setVisible(false);
 
 		return jTextField5;
 	}
@@ -859,7 +853,6 @@ public class UpdateStudentForm extends JPanel {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			jTextField3.setBorder(null);
 		}
 		return jTextField3;
 	}
@@ -867,7 +860,6 @@ public class UpdateStudentForm extends JPanel {
 	private JTextField getJTextField2() {
 		if (jTextField2 == null) {
 			jTextField2 = new JTextField();
-			jTextField2.setBorder(null);
 			jTextField2.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent event) {
@@ -881,7 +873,6 @@ public class UpdateStudentForm extends JPanel {
 	private JTextField getJTextField1() {
 		if (jTextField1 == null) {
 			jTextField1 = new JTextField();
-			jTextField1.setBorder(null);
 			jTextField1.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent event) {
@@ -904,7 +895,8 @@ public class UpdateStudentForm extends JPanel {
 			jPanel0.add(getJTextField3(), new Constraints(new Leading(117, 134, 12, 12), new Leading(136, 23, 12, 12)));
 			jPanel0.add(getJTextField19(), new Constraints(new Leading(117, 134, 12, 12), new Leading(177, 23, 12, 12)));
 			jPanel0.add(getJComboBox0(), new Constraints(new Leading(117, 134, 12, 12), new Leading(177, 23, 12, 12)));
-			jPanel0.add(getJTextField5(), new Constraints(new Leading(117, 134, 12, 12), new Leading(218, 23, 12, 12)));
+			//jPanel0.add(getJTextField5(), new Constraints(new Leading(117, 134, 12, 12), new Leading(218, 23, 12, 12)));
+			jPanel0.add(getDatePicker(), new Constraints(new Leading(117, 134, 12, 12), new Leading(218, 23, 12, 12)));
 			jPanel0.add(getJTextField6(), new Constraints(new Leading(117, 134, 12, 12), new Leading(259, 23, 12, 12)));
 			jPanel0.add(getJTextField18(), new Constraints(new Leading(398, 134, 10, 10), new Leading(17, 23, 10, 10)));
 			jPanel0.add(getJComboBox1(), new Constraints(new Leading(398, 134, 10, 10), new Leading(17, 23, 10, 10)));
@@ -935,7 +927,6 @@ public class UpdateStudentForm extends JPanel {
 	private JTextField getJTextField0() {
 		if (jTextField0 == null) {
 			jTextField0 = new JTextField();
-			jTextField0.setBorder(null);
 			jTextField0.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent event) {
@@ -1237,7 +1228,7 @@ public class UpdateStudentForm extends JPanel {
 
 		}
 
-		jTextField20.setText(String.valueOf(student.getRoom().getNo()));
+		jComboBox2.setSelectedItem(String.valueOf(student.getRoom().getNo()));
 
 	}
 
@@ -1306,7 +1297,15 @@ public class UpdateStudentForm extends JPanel {
 		jTextField17.setText("");
 
 		jTable0.setModel(new DefaultTableModel(null,QUALIFICATION_COLUMN));
-		jTextField20.setText("");
+		
+		try {
+			
+			jComboBox2.setModel(new DefaultComboBoxModel(new RoomDAO().availableRoomNOS()));
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 
 		jCheckBox0.setSelected(false);
 		jCheckBox1.setSelected(false);

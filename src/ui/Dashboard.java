@@ -355,6 +355,7 @@ public class Dashboard extends JFrame {
 
 			studentRegistration.add(studentRegistration());
 			studentRegistration.add(studentSearch());
+			studentRegistration.add(studentUpdate());
 
 		}
 
@@ -439,6 +440,43 @@ public class Dashboard extends JFrame {
 
 	}
 
+	private JButton buttonStudentUpdate;
+	public JButton studentUpdate() {
+
+		if (buttonStudentUpdate==null) {
+
+			buttonStudentUpdate = new JButton("Update");
+
+			buttonStudentUpdate.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					openStudentUpdateTab();
+				}
+
+			});
+
+		}
+
+		return buttonStudentUpdate;
+	}
+
+	public void openStudentUpdateTab(){
+
+		if (isNewTab("Student Update")) {
+
+			mainWindow.addTab("Student Update", new JScrollPane(new UpdateStudentForm()));
+			mainWindow.setSelectedIndex(mainWindow.indexOfTab("Student Update"));
+
+		} else {
+
+			mainWindow.setSelectedIndex(mainWindow.indexOfTab("Student Update"));
+
+		}
+
+	}
+
 	/*
 	 * SERVICE REGISTRATION TASKPANE
 	 */
@@ -480,7 +518,7 @@ public class Dashboard extends JFrame {
 
 		return buttonServiceRegistration;
 	}
-	
+
 	public void openServiceRegistrationTab(){
 
 		if (isNewTab("Service Registration")) {
@@ -495,7 +533,7 @@ public class Dashboard extends JFrame {
 		}
 
 	}
-	
+
 	private JButton buttonStudentServiceForm;
 	public JButton studentServiceForm() {
 
@@ -516,7 +554,7 @@ public class Dashboard extends JFrame {
 
 		return buttonStudentServiceForm;
 	}
-	
+
 	public void openServiceSelectionTab(){
 
 		if (isNewTab("Service Selection")) {

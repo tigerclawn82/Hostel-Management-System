@@ -2,8 +2,6 @@ package dao;
 
 import java.sql.SQLException;
 
-import javax.swing.JPanel;
-
 import db.DataSource;
 import db.Database;
 
@@ -258,14 +256,22 @@ public class StudentDAO extends DAO<Student,String>{
 	
 	public boolean updateStudent(UpdateStudentForm form) {
 		
-		boolean deleteStudent = Database.executeDelete("DELETE FROM STUDENT WHERE STD_ID = '"+form.jTextField0.getText().toUpperCase()+"'");
+		//boolean deleteStudent = Database.executeDelete("DELETE FROM STUDENT WHERE STD_ID = '"+form.jTextField0.getText().toUpperCase()+"'");
 		boolean deleteQualification = Database.executeDelete("DELETE FROM QUALIFICATION WHERE STD_ID = '"+form.jTextField0.getText().toUpperCase()+"'");
 		
-		if (deleteStudent && deleteQualification) {
+		if (deleteQualification) {
 			
-			Student student = new Student();
+			Student student = null;
+			
+			try {
+				
+				student = new StudentDAO().queryForId(form.jTextField0.getText().toUpperCase());
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
 
-			student.setId(form.jTextField0.getText().toUpperCase());
 			student.setName(form.jTextField1.getText());
 			student.setFatherName(form.jTextField2.getText());
 			student.setAge(Integer.parseInt(form.jTextField3.getText()));
@@ -285,7 +291,7 @@ public class StudentDAO extends DAO<Student,String>{
 			
 			try {
 
-				room = new RoomDAO().queryForId(Integer.parseInt(form.jTextField20.getText()));
+				room = new RoomDAO().queryForId(Integer.parseInt(form.jComboBox2.getSelectedItem().toString()));
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -298,10 +304,12 @@ public class StudentDAO extends DAO<Student,String>{
 
 			}
 			
+			RoomDAO.roomMigration(student.getRoom().getNo(), room.getNo());
+			
 			try {
 
 				student.setRoom(room);
-				new StudentDAO().create(student);
+				new StudentDAO().update(student);
 
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -334,6 +342,7 @@ public class StudentDAO extends DAO<Student,String>{
 				}
 
 			}
+			
 			
 			
 		} else {
