@@ -453,6 +453,7 @@ public class Dashboard extends JFrame {
 			serviceRegistration.setCollapsed(true);
 
 			serviceRegistration.add(serviceRegistration());
+			serviceRegistration.add(studentServiceForm());
 
 		}
 
@@ -490,6 +491,42 @@ public class Dashboard extends JFrame {
 		} else {
 
 			mainWindow.setSelectedIndex(mainWindow.indexOfTab("Service Registration"));
+
+		}
+
+	}
+	
+	private JButton buttonStudentServiceForm;
+	public JButton studentServiceForm() {
+
+		if (buttonStudentServiceForm==null) {
+
+			buttonStudentServiceForm = new JButton("Service Selection");
+			buttonStudentServiceForm.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					openServiceSelectionTab();
+				}
+
+			});
+
+		}
+
+		return buttonStudentServiceForm;
+	}
+	
+	public void openServiceSelectionTab(){
+
+		if (isNewTab("Service Selection")) {
+
+			mainWindow.addTab("Service Selection", new JScrollPane(new ServiceRegistrationForm()));
+			mainWindow.setSelectedIndex(mainWindow.indexOfTab("Service Selection"));
+
+		} else {
+
+			mainWindow.setSelectedIndex(mainWindow.indexOfTab("Service Selection"));
 
 		}
 
