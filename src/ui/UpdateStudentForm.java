@@ -179,10 +179,12 @@ public class UpdateStudentForm extends JPanel {
 	private JComboBox getJComboBox2() {
 		if (jComboBox2 == null) {
 			jComboBox2 = new JComboBox();
+			Object[] availableRoomNOS = null;
 
 			try {
 
-				jComboBox2.setModel(new DefaultComboBoxModel(new RoomDAO().availableRoomNOS()));
+				availableRoomNOS = new RoomDAO().availableRoomNOS();
+				jComboBox2.setModel(new DefaultComboBoxModel(availableRoomNOS));
 
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -265,12 +267,12 @@ public class UpdateStudentForm extends JPanel {
 			jPanel3.setBorder(BorderFactory.createTitledBorder(null, "Search By", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new Font("Dialog",
 					Font.BOLD, 12), new Color(51, 51, 51)));
 			jPanel3.setLayout(new GroupLayout());
-			jPanel3.add(getJLabel23(), new Constraints(new Leading(514, 12, 12), new Leading(-6, 32, 32)));
-			jPanel3.add(getJSpinner0(), new Constraints(new Trailing(12, 41, 423, 448), new Leading(12, 12, 12)));
+			jPanel3.add(getJSpinner0(), new Constraints(new Trailing(12, 41, 423, 448), new Leading(7, 20, 10, 9)));
 			jPanel3.add(getJCheckBox4(), new Constraints(new Leading(36, 93, 10, 10), new Leading(5, 8, 8)));
 			jPanel3.add(getJCheckBox5(), new Constraints(new Leading(140, 93, 10, 10), new Leading(5, 8, 8)));
 			jPanel3.add(getJCheckBox6(), new Constraints(new Leading(230, 62, 10, 10), new Leading(5, 8, 8)));
 			jPanel3.add(getJCheckBox7(), new Constraints(new Leading(323, 122, 10, 10), new Leading(5, 8, 8)));
+			jPanel3.add(getJLabel23(), new Constraints(new Trailing(20, 26, 10, 518), new Leading(-11, 10, 10)));
 		}
 		return jPanel3;
 	}
@@ -1262,8 +1264,8 @@ public class UpdateStudentForm extends JPanel {
 			}
 
 		}
-
-		jComboBox2.setSelectedItem(String.valueOf(student.getRoom().getNo()));
+		
+		jComboBox2.setSelectedItem(student.getRoom().getNo());
 
 	}
 

@@ -304,6 +304,8 @@ public class StudentDAO extends DAO<Student,String>{
 
 			}
 
+			System.out.println("Old: "+student.getRoom().getNo()+", New: "+room.getNo());
+			
 			RoomDAO.roomMigration(student.getRoom().getNo(), room.getNo());
 
 			try {
@@ -345,7 +347,7 @@ public class StudentDAO extends DAO<Student,String>{
 
 			boolean isMessSelected = ServiceRegistrationDAO.isServiceRegisteredByStudent(form.jTextField0.getText(), "Mess");
 			boolean isInternetSelected = ServiceRegistrationDAO.isServiceRegisteredByStudent(form.jTextField0.getText(), "Internet");
-
+			
 			if (form.jCheckBox0.isSelected()) {
 
 				if (!isMessSelected) {
@@ -372,7 +374,7 @@ public class StudentDAO extends DAO<Student,String>{
 
 					try {
 
-						new ServiceRegistrationDAO().delete(new ServiceRegistration(student, new ServiceDAO().queryForId("Mess")));
+						Database.executeDelete("DELETE FROM STD_SER WHERE STD_ID = '"+student.getId()+"' AND S_TITLE = 'Mess'");
 
 					} catch (Exception e) {
 						// TODO: handle exception
@@ -415,7 +417,7 @@ public class StudentDAO extends DAO<Student,String>{
 
 					try {
 
-						new ServiceRegistrationDAO().delete(new ServiceRegistration(student, new ServiceDAO().queryForId("Internet")));
+						Database.executeDelete("DELETE FROM STD_SER WHERE STD_ID = '"+student.getId()+"' AND S_TITLE = 'Internet'");
 
 					} catch (Exception e) {
 						// TODO: handle exception

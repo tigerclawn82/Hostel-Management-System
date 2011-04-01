@@ -294,3 +294,9 @@ INSERT INTO STD_SER (STD_ID,S_TITLE) VALUES ('025-BSCS-09','Electricity');
 INSERT INTO STD_SER (STD_ID,S_TITLE) VALUES ('025-BSCS-09','Gas');
 
 COMMIT [42000-153]
+04-01 14:10:38 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "MESS_RECORD" not found; SQL statement:
+INSERT INTO `MESS_RECORD` (`MR_DATE` ,`MR_TYPE` ,`MR_STATUS` ,`MR_CHARGES` ,`STD_ID` ,`S_TITLE` ,`B_ID` ) VALUES (?,?,?,?,?,?,?) [42102-150]
+04-01 14:10:38 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Table "MESS_RECORD" not found; SQL statement:
+INSERT INTO `MESS_RECORD` (`MR_DATE` ,`MR_TYPE` ,`MR_STATUS` ,`MR_CHARGES` ,`STD_ID` ,`S_TITLE` ,`B_ID` ) VALUES (?,?,?,?,?,?,?) [42102-150]

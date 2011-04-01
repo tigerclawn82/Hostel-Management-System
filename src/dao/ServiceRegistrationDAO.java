@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import utilities.StudentSearchUtilities;
+
 import db.DataSource;
 
 import bean.ServiceRegistration;
@@ -53,7 +55,11 @@ public class ServiceRegistrationDAO extends DAO<ServiceRegistration,String> {
 		
 		for (Object object : servicesRegisteredByStudent) {
 			
-			return object.equals(serviceTitle);
+			if (object.toString().equalsIgnoreCase(serviceTitle)) {
+				
+				return true;
+				
+			}
 			
 		}
 
