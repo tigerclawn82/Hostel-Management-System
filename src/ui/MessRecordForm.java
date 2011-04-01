@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -21,6 +22,8 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 import org.jdesktop.swingx.JXDatePicker;
+
+import utilities.Utilities;
 
 import dao.MessRecordDAO;
 import dao.StudentDAO;
@@ -66,7 +69,7 @@ public class MessRecordForm extends JPanel {
 		if (jTextField0 == null) {
 			jTextField0 = new JTextField();
 			jTextField0.addActionListener(new ActionListener() {
-	
+
 				public void actionPerformed(ActionEvent event) {
 					jTextField0ActionActionPerformed(event);
 				}
@@ -131,8 +134,9 @@ public class MessRecordForm extends JPanel {
 
 	private JTextField getJTextField2() {
 		if (jTextField2 == null) {
-			jTextField2 = new JTextField();
+			jTextField2 = new JFormattedTextField(NumberFormat.getInstance());
 		}
+		
 		return jTextField2;
 	}
 
@@ -155,7 +159,7 @@ public class MessRecordForm extends JPanel {
 		}
 		return jComboBox0;
 	}
-	
+
 	private JXDatePicker getDatePicker() {
 		if (datePicker == null) {
 			datePicker = new JXDatePicker(new Date());
@@ -175,29 +179,37 @@ public class MessRecordForm extends JPanel {
 			}
 
 		}
-		
+
 		jTextField1.setVisible(false);
-		
+
 		return jTextField1;
 	}
 
 	private void jButton0MouseMouseClicked(MouseEvent event) {
 
-		try {
+		if(Utilities.isNotEmptyFields(jTextField0,jTextField2)){
 
-			if (new MessRecordDAO().addMessRecord(this)) {
+			try {
 
-				JOptionPane.showMessageDialog(null, "MESS RECORED ADDED!");
+				if (new MessRecordDAO().addMessRecord(this)) {
 
-			} else {
+					JOptionPane.showMessageDialog(null, "MESS RECORED ADDED!");
 
-				JOptionPane.showMessageDialog(null, "FAILED! CHECK THE FORM AGAIN!");
+				} else {
 
+					JOptionPane.showMessageDialog(null, "FAILED! CHECK THE FORM AGAIN!");
+
+				}
+
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
 			}
 
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+		} else {
+
+			JOptionPane.showMessageDialog(null, "Required Fields Cannot Be Left Blank!!");
+
 		}
 
 	}
@@ -225,9 +237,9 @@ public class MessRecordForm extends JPanel {
 	}
 
 	private void jTextField0ActionActionPerformed(ActionEvent event) {
-		
+
 		studentIDCheck();
-		
+
 	}
 
 }

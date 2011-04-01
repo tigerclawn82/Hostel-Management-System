@@ -18,6 +18,8 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import utilities.Utilities;
+
 import dao.ServiceDAO;
 
 //VS4E -- DO NOT REMOVE THIS LINE!
@@ -114,6 +116,7 @@ public class ServiceForm extends JPanel {
 			jComboBox0.setDoubleBuffered(false);
 			jComboBox0.setBorder(null);
 		}
+		
 		return jComboBox0;
 	}
 
@@ -133,23 +136,29 @@ public class ServiceForm extends JPanel {
 
 	private void jButton0MouseMouseClicked(MouseEvent event) {
 		
-		try {
+		if(Utilities.isNotEmptyFields(jTextField0,jTextField1)){
 			
-			if (new ServiceDAO().registerService(this)) {
+			try {
 				
-				JOptionPane.showMessageDialog(null, Success.SERVICE_REGSISTRATION_SUCCESS);
+				if (new ServiceDAO().registerService(this)) {
+					
+					JOptionPane.showMessageDialog(null, Success.SERVICE_REGSISTRATION_SUCCESS);
+					
+				} else {
+					
+					JOptionPane.showMessageDialog(null, Error.SERVICE_REGISTRATION_FAILED);
+					
+				}
 				
-			} else {
-				
-				JOptionPane.showMessageDialog(null, Error.SERVICE_REGISTRATION_FAILED);
-				
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
 			}
 			
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+		} else {
+			
+			JOptionPane.showMessageDialog(null, "Required Fields Cannot Be Left Blank!!");
+			
 		}
-		
 	}
-
 }
