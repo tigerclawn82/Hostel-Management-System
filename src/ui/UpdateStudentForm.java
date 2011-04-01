@@ -41,6 +41,7 @@ import org.dyno.visual.swing.layouts.Trailing;
 import org.jdesktop.swingx.JXDatePicker;
 
 import utilities.StudentSearchUtilities;
+import utilities.Utilities;
 import bean.Qualification;
 import bean.Student;
 import dao.RoomDAO;
@@ -140,10 +141,10 @@ public class UpdateStudentForm extends JPanel {
 	private JButton jButton2;
 	private JButton jButton3;
 	private JButton jButton4;
-	
+
 	public JXDatePicker datePicker;
 	public JComboBox jComboBox2;
-	
+
 	public UpdateStudentForm() {
 
 		qualificationData = new ArrayList<Qualification>();
@@ -177,16 +178,16 @@ public class UpdateStudentForm extends JPanel {
 	private JComboBox getJComboBox2() {
 		if (jComboBox2 == null) {
 			jComboBox2 = new JComboBox();
-			
+
 			try {
-				
+
 				jComboBox2.setModel(new DefaultComboBoxModel(new RoomDAO().availableRoomNOS()));
-				
+
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
-			
+
 			jComboBox2.setDoubleBuffered(false);
 			jComboBox2.setBorder(null);
 		}
@@ -551,8 +552,17 @@ public class UpdateStudentForm extends JPanel {
 
 	private JTextField getJTextField14() {
 		if (jTextField14 == null) {
-			jTextField14 = new JTextField();
+
+			try {
+
+				jTextField14 = new JFormattedTextField(new MaskFormatter("#"));
+
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
+
 		return jTextField14;
 	}
 
@@ -819,9 +829,9 @@ public class UpdateStudentForm extends JPanel {
 	}
 
 	private JTextField getJTextField5() {
-		
+
 		if (jTextField5 == null) {
-			
+
 			try {
 
 				jTextField5 = new JFormattedTextField(new MaskFormatter("##/##/####"));
@@ -926,7 +936,16 @@ public class UpdateStudentForm extends JPanel {
 
 	private JTextField getJTextField0() {
 		if (jTextField0 == null) {
-			jTextField0 = new JTextField();
+
+			try {
+				jTextField0 = new JFormattedTextField(new MaskFormatter("###-UUUU-####"));
+
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+
+				e.printStackTrace();
+			}
+
 			jTextField0.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent event) {
@@ -1064,25 +1083,40 @@ public class UpdateStudentForm extends JPanel {
 
 	public void updateQualificationData() {
 
-		if (isNewEntry(jTextField4.getText())) {
+		if(Utilities.isNotEmptyFields(jTextField4,jTextField15,jTextField16,jTextField7,jTextField14,jTextField17)){
 
-			Qualification qualification = new Qualification();
-			qualification.setTitle(jTextField4.getText());
-			qualification.setInstitute(jTextField7.getText());
-			qualification.setDuration(Integer.parseInt(jTextField14.getText()));
-			qualification.setYearOfPassing(jTextField15.getText());
-			qualification.setTotalMarks(Integer.parseInt(jTextField16.getText()));
-			qualification.setObtainedMarks(Integer.parseInt(jTextField17.getText())); 
-			qualification.setPercentage((Double.valueOf(jTextField17.getText()) / Double.valueOf(jTextField16.getText()))*100);
+			if(Integer.parseInt(jTextField17.getText()) < Integer.parseInt(jTextField16.getText()) ){
+				
+				if (isNewEntry(jTextField4.getText())) {
 
-			qualificationData.add(qualification);
+					Qualification qualification = new Qualification();
+					qualification.setTitle(jTextField4.getText());
+					qualification.setInstitute(jTextField7.getText());
+					qualification.setDuration(Integer.parseInt(jTextField14.getText()));
+					qualification.setYearOfPassing(jTextField15.getText());
+					qualification.setTotalMarks(Integer.parseInt(jTextField16.getText()));
+					qualification.setObtainedMarks(Integer.parseInt(jTextField17.getText())); 
+					qualification.setPercentage((Double.valueOf(jTextField17.getText()) / Double.valueOf(jTextField16.getText()))*100);
 
+					qualificationData.add(qualification);
+
+				} else {
+
+					JOptionPane.showMessageDialog(null, jTextField4.getText()+" ALREADY ADDED!!!");
+
+				}
+
+
+			} else {
+
+				JOptionPane.showMessageDialog(null, "Total Marks Cannot Be Less Than Obtained Marks!!");
+			}
+			
 		} else {
 
-			JOptionPane.showMessageDialog(null, jTextField4.getText()+" ALREADY ADDED!!!");
+			JOptionPane.showMessageDialog(null, "Please Enter All Educational Information!");
 
 		}
-
 	}
 
 	public boolean isNewEntry(String title) {
@@ -1279,7 +1313,6 @@ public class UpdateStudentForm extends JPanel {
 		jTextField2.setText("");
 		jTextField3.setText("");
 		jTextField19.setText("");
-		jTextField5.setText("");
 		jTextField6.setText("");
 		jTextField18.setText("");
 		jTextField8.setText("");
@@ -1297,11 +1330,11 @@ public class UpdateStudentForm extends JPanel {
 		jTextField17.setText("");
 
 		jTable0.setModel(new DefaultTableModel(null,QUALIFICATION_COLUMN));
-		
+
 		try {
-			
+
 			jComboBox2.setModel(new DefaultComboBoxModel(new RoomDAO().availableRoomNOS()));
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -1440,21 +1473,28 @@ public class UpdateStudentForm extends JPanel {
 
 	private void jButton4MouseMouseClicked(MouseEvent event) {
 
-		try {
+		if(Utilities.isNotEmptyFields(jTextField1,jTextField10,jTextField11,jTextField12,jTextField13,jTextField14,jTextField15,jTextField16,jTextField17,jTextField2,jTextField3,jTextField4,jTextField6,jTextField7,jTextField8,jTextField9,jTextField0)){
 
-			if (new StudentDAO().updateStudent(this)) {
+			try {
 
-				JOptionPane.showMessageDialog(null, "RECORD UPDATED!");
+				if (new StudentDAO().updateStudent(this)) {
 
-			} else {
+					JOptionPane.showMessageDialog(null, "RECORD UPDATED!");
 
+				} else {
+
+					JOptionPane.showMessageDialog(null, "SORRY! RECORD NOT UPDATED!");
+				}
+
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, "SORRY! RECORD NOT UPDATED!");
 			}
 
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, "SORRY! RECORD NOT UPDATED!");
+		} else {
+
+			JOptionPane.showMessageDialog(null, "Required Fields Cannot Be Left Blank!!");
 		}
 
 	}

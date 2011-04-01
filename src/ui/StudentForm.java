@@ -35,6 +35,8 @@ import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 import org.jdesktop.swingx.JXDatePicker;
 
+import utilities.Utilities;
+
 import bean.Qualification;
 import dao.RoomDAO;
 import dao.StudentDAO;
@@ -373,9 +375,17 @@ public class StudentForm extends JPanel {
 
 	private JTextField getJTextField14() {
 		if (jTextField14 == null) {
-			jTextField14 = new JTextField();
 			
+			try {
+				
+				jTextField14 = new JFormattedTextField(new MaskFormatter("#"));
+				
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
 		}
+		
 		return jTextField14;
 	}
 
@@ -724,24 +734,32 @@ public class StudentForm extends JPanel {
 
 	private void jButton0MouseMouseClicked(MouseEvent event) {
 
-		try {
+		if(Utilities.isNotEmptyFields(jTextField1,jTextField10,jTextField11,jTextField12,jTextField13,jTextField14,jTextField15,jTextField16,jTextField17,jTextField2,jTextField3,jTextField4,jTextField6,jTextField7,jTextField8,jTextField9,jFormattedTextField0)){
+			
+			try {
 
-			if (new StudentDAO().registerStudent(this)) {
+				if (new StudentDAO().registerStudent(this)) {
 
-				JOptionPane.showMessageDialog(null, Success.STUDENT_REGSISTRATION_SUCCESS);
+					JOptionPane.showMessageDialog(null, Success.STUDENT_REGSISTRATION_SUCCESS);
 
-			} else {
+				} else {
 
+					JOptionPane.showMessageDialog(null, Error.STUDENT_REGSISTRATION_FAILED);
+
+				}
+
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
 				JOptionPane.showMessageDialog(null, Error.STUDENT_REGSISTRATION_FAILED);
-
 			}
 
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			JOptionPane.showMessageDialog(null, Error.STUDENT_REGSISTRATION_FAILED);
+			
+		} else {
+			
+			JOptionPane.showMessageDialog(null, "Required Fields Cannot Be Left Blank!!");
 		}
-
+		
 	}
 
 	private void jButton1MouseMouseClicked(MouseEvent event) {
@@ -783,23 +801,39 @@ public class StudentForm extends JPanel {
 
 	public void updateQualificationData() {
 
-		if (isNewEntry(jTextField4.getText())) {
+		if(Utilities.isNotEmptyFields(jTextField4,jTextField15,jTextField16,jTextField7,jTextField14,jTextField17)){
+		
+			if(Integer.parseInt(jTextField17.getText()) < Integer.parseInt(jTextField16.getText()) ){
+				
+				if (isNewEntry(jTextField4.getText())) {
 
-			Qualification qualification = new Qualification();
-			qualification.setTitle(jTextField4.getText());
-			qualification.setInstitute(jTextField7.getText());
-			qualification.setDuration(Integer.parseInt(jTextField14.getText()));
-			qualification.setYearOfPassing(jTextField15.getText());
-			qualification.setTotalMarks(Integer.parseInt(jTextField16.getText()));
-			qualification.setObtainedMarks(Integer.parseInt(jTextField17.getText())); 
-			qualification.setPercentage((Double.valueOf(jTextField17.getText()) / Double.valueOf(jTextField16.getText()))*100);
+					Qualification qualification = new Qualification();
+					qualification.setTitle(jTextField4.getText());
+					qualification.setInstitute(jTextField7.getText());
+					qualification.setDuration(Integer.parseInt(jTextField14.getText()));
+					qualification.setYearOfPassing(jTextField15.getText());
+					qualification.setTotalMarks(Integer.parseInt(jTextField16.getText()));
+					qualification.setObtainedMarks(Integer.parseInt(jTextField17.getText())); 
+					qualification.setPercentage((Double.valueOf(jTextField17.getText()) / Double.valueOf(jTextField16.getText()))*100);
 
-			qualificationData.add(qualification);
+					qualificationData.add(qualification);
 
+				} else {
+
+					JOptionPane.showMessageDialog(null, jTextField4.getText()+" ALREADY ADDED!!!");
+
+				}
+				
+			} else {
+				
+				JOptionPane.showMessageDialog(null, "Total Marks Cannot Be Less Than Obtained Marks!!");
+			}
+		
+			
 		} else {
-
-			JOptionPane.showMessageDialog(null, jTextField4.getText()+" ALREADY ADDED!!!");
-
+			
+			JOptionPane.showMessageDialog(null, "Please Enter All Educational Information!");
+			
 		}
 
 	}
