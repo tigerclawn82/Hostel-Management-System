@@ -234,39 +234,39 @@ public class StudentDAO extends DAO<Student,String>{
 
 		return true;
 	}
-	
+
 	public boolean isStudentIDExist(String id) {
-		
+
 		try {
-			
+
 			return new StudentDAO().queryForId(id.toUpperCase())!=null;
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			
+
 		} finally {
-			
+
 			DataSource.closeConnection();
-			
+
 		}
-		
+
 		return false;
 	}
-	
+
 	public boolean updateStudent(UpdateStudentForm form) {
-		
+
 		//boolean deleteStudent = Database.executeDelete("DELETE FROM STUDENT WHERE STD_ID = '"+form.jTextField0.getText().toUpperCase()+"'");
 		boolean deleteQualification = Database.executeDelete("DELETE FROM QUALIFICATION WHERE STD_ID = '"+form.jTextField0.getText().toUpperCase()+"'");
-		
+
 		if (deleteQualification) {
-			
+
 			Student student = null;
-			
+
 			try {
-				
+
 				student = new StudentDAO().queryForId(form.jTextField0.getText().toUpperCase());
-				
+
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
@@ -288,7 +288,7 @@ public class StudentDAO extends DAO<Student,String>{
 			student.setEmailID(form.jTextField13.getText());
 
 			Room room = null;
-			
+
 			try {
 
 				room = new RoomDAO().queryForId(Integer.parseInt(form.jComboBox2.getSelectedItem().toString()));
@@ -303,9 +303,9 @@ public class StudentDAO extends DAO<Student,String>{
 				DataSource.closeConnection();
 
 			}
-			
+
 			RoomDAO.roomMigration(student.getRoom().getNo(), room.getNo());
-			
+
 			try {
 
 				student.setRoom(room);
@@ -321,7 +321,7 @@ public class StudentDAO extends DAO<Student,String>{
 				DataSource.closeConnection();
 
 			}
-			
+
 			for (Qualification qualification : form.qualificationData) {
 
 				qualification.setStudent(student);
@@ -342,15 +342,102 @@ public class StudentDAO extends DAO<Student,String>{
 				}
 
 			}
-			
-			
-			
+
+			boolean isMessSelected = ServiceRegistrationDAO.isServiceRegisteredByStudent(form.jTextField0.getText(), "Mess");
+			boolean isInternetSelected = ServiceRegistrationDAO.isServiceRegisteredByStudent(form.jTextField0.getText(), "Internet");
+
+			if (form.jCheckBox0.isSelected()) {
+
+				if (!isMessSelected) {
+
+					try {
+
+						new ServiceRegistrationDAO().create(new ServiceRegistration(student, new ServiceDAO().queryForId("Mess")));
+
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+
+					} finally {
+
+						DataSource.closeConnection();
+
+					}
+
+				}
+
+			} else {
+
+				if (isMessSelected) {
+
+					try {
+
+						new ServiceRegistrationDAO().delete(new ServiceRegistration(student, new ServiceDAO().queryForId("Mess")));
+
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+
+					} finally {
+
+						DataSource.closeConnection();
+
+					}
+
+				} 
+
+			}
+
+			if (form.jCheckBox1.isSelected()) {
+
+				if (!isInternetSelected) {
+
+					try {
+
+						new ServiceRegistrationDAO().create(new ServiceRegistration(student, new ServiceDAO().queryForId("Internet")));
+
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+						return false;
+
+					} finally {
+
+						DataSource.closeConnection();
+
+					}
+
+				}
+
+			} else {
+
+				if (isInternetSelected) {
+
+					try {
+
+						new ServiceRegistrationDAO().delete(new ServiceRegistration(student, new ServiceDAO().queryForId("Internet")));
+
+					} catch (Exception e) {
+						// TODO: handle exception
+						e.printStackTrace();
+						return false;
+
+					} finally {
+
+						DataSource.closeConnection();
+
+					}
+
+				} 
+
+			}
+
 		} else {
-			
+
 			return false;
-			
+
 		}
-		
+
 		return true;
 	}
 
