@@ -53,6 +53,7 @@ public class UpdateStudentForm extends JPanel {
 	/*
 	 * FOR STUDENT INFORMATION
 	 */
+	
 	public Student student = null;
 	public List<Qualification> qualificationData = null;
 	public String[] serviceTitle = null;
@@ -280,7 +281,7 @@ public class UpdateStudentForm extends JPanel {
 			jCheckBox7.setSelected(true);
 			jCheckBox7.setText("Father Name");
 			jCheckBox7.addItemListener(new ItemListener() {
-
+	
 				public void itemStateChanged(ItemEvent event) {
 					jCheckBox7ItemItemStateChanged(event);
 				}

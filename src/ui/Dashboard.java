@@ -38,6 +38,7 @@ import utilities.RegistrationUtilities;
 import dao.RoomDAO;
 
 //VS4E -- DO NOT REMOVE THIS LINE!
+
 public class Dashboard extends JFrame {
 
 	private static final long serialVersionUID = 1L;

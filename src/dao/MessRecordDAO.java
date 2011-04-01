@@ -1,6 +1,9 @@
 package dao;
 
 import java.sql.SQLException;
+
+import javax.swing.JFormattedTextField;
+
 import db.DataSource;
 
 import ui.MessRecordForm;
@@ -31,7 +34,7 @@ public class MessRecordDAO extends DAO<MessRecord, Integer> {
 
 		}
 		
-		record.setCharges(Integer.parseInt(form.jTextField2.getText()));
+		record.setCharges(Integer.parseInt(((JFormattedTextField)form.jTextField2).getValue().toString()));
 
 		Student student = null;
 
