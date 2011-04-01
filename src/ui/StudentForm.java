@@ -47,7 +47,6 @@ public class StudentForm extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel jPanel0;
-	public JTextField jTextField0;
 	public JTextField jTextField1;
 	public JTextField jTextField2;
 	public JTextField jTextField3;
@@ -102,6 +101,7 @@ public class StudentForm extends JPanel {
 	private JLabel jLabel21;
 	public JXDatePicker datePicker;
 	private JButton jButton2;
+	public JFormattedTextField jFormattedTextField0;
 
 	public StudentForm() {
 
@@ -118,6 +118,22 @@ public class StudentForm extends JPanel {
 		add(getJButton0(), new Constraints(new Leading(284, 10, 10), new Leading(878, 12, 12)));
 		add(getJButton2(), new Constraints(new Leading(172, 10, 10), new Leading(878, 12, 12)));
 		setSize(600, 925);
+	}
+
+	private JFormattedTextField getJFormattedTextField0() {
+		if (jFormattedTextField0 == null) {
+			
+			try {
+				
+				jFormattedTextField0 = new JFormattedTextField(new MaskFormatter("###-UUUU-####"));
+				
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			}
+		}
+		return jFormattedTextField0;
 	}
 
 	private JButton getJButton2() {
@@ -674,7 +690,6 @@ public class StudentForm extends JPanel {
 			jPanel0.setBorder(BorderFactory.createTitledBorder(null, "Personal Information", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new Font(
 					"Dialog", Font.BOLD, 12), new Color(51, 51, 51)));
 			jPanel0.setLayout(new GroupLayout());
-			jPanel0.add(getJTextField0(), new Constraints(new Leading(117, 134, 10, 10), new Leading(15, 23, 10, 10)));
 			jPanel0.add(getJTextField1(), new Constraints(new Leading(117, 134, 12, 12), new Leading(54, 23, 10, 10)));
 			jPanel0.add(getJTextField2(), new Constraints(new Leading(117, 134, 12, 12), new Leading(95, 23, 12, 12)));
 			jPanel0.add(getJTextField3(), new Constraints(new Leading(117, 134, 12, 12), new Leading(136, 23, 12, 12)));
@@ -702,16 +717,9 @@ public class StudentForm extends JPanel {
 			jPanel0.add(getJLabel9(), new Constraints(new Leading(310, 88, 10, 10), new Leading(98, 12, 12)));
 			jPanel0.add(getJLabel7(), new Constraints(new Leading(310, 70, 12, 12), new Leading(20, 12, 12)));
 			jPanel0.add(getJLabel10(), new Constraints(new Leading(310, 88, 12, 12), new Leading(139, 12, 12)));
+			jPanel0.add(getJFormattedTextField0(), new Constraints(new Leading(117, 134, 12, 12), new Leading(18, 12, 12)));
 		}
 		return jPanel0;
-	}
-
-	private JTextField getJTextField0() {
-		if (jTextField0 == null) {
-			jTextField0 = new JTextField();
-			
-		}
-		return jTextField0;
 	}
 
 	private void jButton0MouseMouseClicked(MouseEvent event) {
@@ -829,7 +837,7 @@ public class StudentForm extends JPanel {
 	
 	public void clearFields() {
 		
-		jTextField0.setText("");
+		jFormattedTextField0.setText("");
 		jTextField1.setText("");
 		jTextField2.setText("");
 		jTextField3.setText("");

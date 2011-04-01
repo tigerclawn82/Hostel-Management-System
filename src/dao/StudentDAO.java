@@ -25,7 +25,7 @@ public class StudentDAO extends DAO<Student,String>{
 
 		Student student = new Student();
 
-		student.setId(form.jTextField0.getText().toUpperCase());
+		student.setId(form.jFormattedTextField0.getText().toUpperCase());
 		student.setName(form.jTextField1.getText());
 		student.setFatherName(form.jTextField2.getText());
 		student.setAge(Integer.parseInt(form.jTextField3.getText()));
