@@ -141,7 +141,7 @@ public class UpdateStudentForm extends JPanel {
 	private JLabel jLabel23;
 	private JButton jButton2;
 	private JButton jButton3;
-	private JButton jButton4;
+	public JButton jButton4;
 
 	public JXDatePicker datePicker;
 	public JComboBox jComboBox2;
@@ -197,7 +197,7 @@ public class UpdateStudentForm extends JPanel {
 		return jComboBox2;
 	}
 
-	private JButton getJButton4() {
+	public JButton getJButton4() {
 		if (jButton4 == null) {
 			jButton4 = new JButton();
 			jButton4.setText("Update Record");

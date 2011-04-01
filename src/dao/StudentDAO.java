@@ -30,7 +30,6 @@ public class StudentDAO extends DAO<Student,String>{
 		student.setFatherName(form.jTextField2.getText());
 		student.setAge(Integer.parseInt(form.jTextField3.getText()));
 		student.setGender(form.jComboBox0.getSelectedItem().toString());
-		//student.setDateOfBirth(form.jTextField5.getText());
 		student.setDateOfBirth(form.datePicker.getDate());
 		student.setNationalID(form.jTextField6.getText());
 		student.setBloodGroup(form.jComboBox1.getSelectedItem().toString());
@@ -256,7 +255,6 @@ public class StudentDAO extends DAO<Student,String>{
 
 	public boolean updateStudent(UpdateStudentForm form) {
 
-		//boolean deleteStudent = Database.executeDelete("DELETE FROM STUDENT WHERE STD_ID = '"+form.jTextField0.getText().toUpperCase()+"'");
 		boolean deleteQualification = Database.executeDelete("DELETE FROM QUALIFICATION WHERE STD_ID = '"+form.jTextField0.getText().toUpperCase()+"'");
 
 		if (deleteQualification) {
@@ -440,6 +438,47 @@ public class StudentDAO extends DAO<Student,String>{
 
 		}
 
+		return true;
+	}
+	
+	public boolean deleteStudent(UpdateStudentForm form) {
+		
+		String studentID = form.jTextField0.getText();
+		int roomNo = Integer.parseInt(form.jComboBox2.getSelectedItem().toString());
+		String studentDelete = "DELETE FROM STUDENT WHERE STD_ID = '"+studentID+"'";
+		String servicesDelete = "DELETE FROM STD_SER WHERE STD_ID = '"+studentID+"'";
+		
+		try {
+
+			Room room = new RoomDAO().queryForId(roomNo);
+			
+			if (room.isFull()) {
+				
+				room.setFull(false);
+				
+			} 
+			
+			room.setCount(room.getCount()-1);
+			new RoomDAO().update(room);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+
+		} finally {
+
+			DataSource.closeConnection();
+		}
+		
+		boolean transaction = Database.executeTransaction(studentDelete,servicesDelete);
+		
+		if (!transaction) {
+			
+			return false;
+			
+		}
+		
 		return true;
 	}
 

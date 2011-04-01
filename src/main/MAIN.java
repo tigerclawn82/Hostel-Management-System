@@ -10,6 +10,7 @@ import org.pushingpixels.substance.api.SubstanceLookAndFeel;
 import org.pushingpixels.substance.api.skin.DustCoffeeSkin;
 
 import ui.BillingRecordForm;
+import ui.DeleteStudentForm;
 import ui.FineRecordForm;
 import ui.LoginForm;
 import ui.MendatoryServicesRegistrationForm;
@@ -65,7 +66,7 @@ public class MAIN extends JFrame {
 				MAIN frame = new MAIN();
 				frame.setDefaultCloseOperation(MAIN.EXIT_ON_CLOSE);
 				frame.setTitle("MAIN");
-				frame.setContentPane(new JScrollPane(new MessRecordForm()));
+				frame.setContentPane(new JScrollPane(new DeleteStudentForm()));
 				frame.getContentPane().setPreferredSize(frame.getSize());
 				frame.pack();
 				frame.setLocationRelativeTo(null);

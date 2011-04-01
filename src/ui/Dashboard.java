@@ -357,6 +357,7 @@ public class Dashboard extends JFrame {
 			studentRegistration.add(studentRegistration());
 			studentRegistration.add(studentSearch());
 			studentRegistration.add(studentUpdate());
+			studentRegistration.add(studentDelete());
 
 		}
 
@@ -473,6 +474,43 @@ public class Dashboard extends JFrame {
 		} else {
 
 			mainWindow.setSelectedIndex(mainWindow.indexOfTab("Student Update"));
+
+		}
+
+	}
+
+	private JButton buttonStudentDelete;
+	public JButton studentDelete() {
+
+		if (buttonStudentDelete==null) {
+
+			buttonStudentDelete = new JButton("Delete");
+
+			buttonStudentDelete.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+					openStudentDeleteTab();
+				}
+
+			});
+
+		}
+
+		return buttonStudentDelete;
+	}
+
+	public void openStudentDeleteTab(){
+
+		if (isNewTab("Student Delete")) {
+
+			mainWindow.addTab("Student Delete", new JScrollPane(new DeleteStudentForm()));
+			mainWindow.setSelectedIndex(mainWindow.indexOfTab("Student Delete"));
+
+		} else {
+
+			mainWindow.setSelectedIndex(mainWindow.indexOfTab("Student Delete"));
 
 		}
 
