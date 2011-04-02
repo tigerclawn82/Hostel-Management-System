@@ -2,6 +2,8 @@ package ui;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
@@ -12,18 +14,21 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
-import dao.RoomDAO;
-
 import bean.Room;
+import dao.RoomDAO;
 
 
 //VS4E -- DO NOT REMOVE THIS LINE!
@@ -49,6 +54,32 @@ public class RoomSearchForm extends JPanel {
 			setSize(320, 240);
 		}
 		
+		@Override
+		protected JTextField getJTextField0() {
+			// TODO Auto-generated method stub
+			if (jTextField0 == null) {
+				jTextField0 = new JTextField();
+				jTextField0.addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						jCheckBox1.setSelected(true);
+						if (jTextField0.getText().equals("")) {
+							
+							JOptionPane.showMessageDialog(null, "Sorry! Room No. not Entered!");
+							
+						} else {
+
+							processSearch();
+							
+						}
+					}
+				});
+			}
+			return jTextField0;
+		}
+		
 	}
 	
 	private static final long serialVersionUID = 1L;
@@ -66,6 +97,7 @@ public class RoomSearchForm extends JPanel {
 	private ButtonGroup buttonGroup1;
 	
 	private Room room = null;
+	private Object[] roomNos = null;
 
 	public RoomSearchForm() {
 		initComponents();
@@ -122,6 +154,13 @@ public class RoomSearchForm extends JPanel {
 	private JSpinner getJSpinner0() {
 		if (jSpinner0 == null) {
 			jSpinner0 = new JSpinner();
+			jSpinner0.setModel(new SpinnerNumberModel(1, 1, 1, 1));
+			jSpinner0.addChangeListener(new ChangeListener() {
+	
+				public void stateChanged(ChangeEvent event) {
+					jSpinner0ChangeStateChanged(event);
+				}
+			});
 		}
 		return jSpinner0;
 	}
@@ -144,7 +183,14 @@ public class RoomSearchForm extends JPanel {
 	private JCheckBox getJCheckBox2() {
 		if (jCheckBox2 == null) {
 			jCheckBox2 = new JCheckBox();
+			jCheckBox2.setSelected(true);
 			jCheckBox2.setText("Not Full");
+			jCheckBox2.addItemListener(new ItemListener() {
+	
+				public void itemStateChanged(ItemEvent event) {
+					jCheckBox2ItemItemStateChanged(event);
+				}
+			});
 		}
 		return jCheckBox2;
 	}
@@ -276,17 +322,21 @@ public class RoomSearchForm extends JPanel {
 	public void searchByNO(int roomNo) {
 		
 		room = RoomDAO.getRoomByNO(roomNo);
+		populateFieldsForSingleRecord();
 		
 	}
 	
 	public void searchAvailabe() {
 		
+		roomNos = RoomDAO.getNotFullRoomNos();
+		populateForMultipleRecordSearch();
 		
 	}
 	
 	public void searchAllRooms() {
 		
-		
+		roomNos = RoomDAO.getAllRoomNos();
+		populateForMultipleRecordSearch();
 		
 	}
 
@@ -302,11 +352,56 @@ public class RoomSearchForm extends JPanel {
 	
 	public void populateFieldsForSingleRecord() {
 		
-		roomForm0.jTextField0.setText(String.valueOf(room.getNo()));
-		roomForm0.jTextField1.setText(String.valueOf(room.getCapacity()));
-		roomForm0.jTextArea0.setText(String.valueOf(room.getLocation()));
-		jTextField0.setText(String.valueOf(room.getCount()));
-		jCheckBox0.setSelected(room.isFull());
+		if (room!=null) {
+			
+			roomForm0.jTextField0.setText(String.valueOf(room.getNo()));
+			roomForm0.jTextField1.setText(String.valueOf(room.getCapacity()));
+			roomForm0.jTextArea0.setText(String.valueOf(room.getLocation()));
+			jTextField0.setText(String.valueOf(room.getCount()));
+			jCheckBox0.setSelected(room.isFull());
+			
+		} else {
+
+			JOptionPane.showMessageDialog(null, "Sorry! No Room found for Room No. :"+jTextField0.getText());
+			
+		}
+		
+	}
+	
+	public void populateForMultipleRecordSearch() {
+		
+		if (roomNos!=null) {
+			
+			if (roomNos.length>0) {
+				
+				JOptionPane.showMessageDialog(null, roomNos.length+" Room(s) Found. Use Pager for Navigation!");
+				searchByNO(Integer.parseInt(roomNos[0].toString()));
+				jSpinner0.setModel(new SpinnerNumberModel(1, 1, roomNos.length, 1));
+				
+			} else {
+
+				JOptionPane.showMessageDialog(null, "Sorry! No Record Found!");
+				
+			}
+			
+		}
+		
+	}
+
+	private void jSpinner0ChangeStateChanged(ChangeEvent event) {
+		
+		if (roomNos!=null) {
+			
+			searchByNO(Integer.parseInt(jSpinner0.getValue().toString()));
+			
+		}
+		
+	}
+
+	private void jCheckBox2ItemItemStateChanged(ItemEvent event) {
+		
+		jCheckBox2.setSelected(true);
+		processSearch();
 		
 	}
 
