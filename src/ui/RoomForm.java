@@ -28,13 +28,13 @@ public class RoomForm extends JPanel {
 	public JTextArea jTextArea0;
 	private JScrollPane jScrollPane0;
 	private JLabel jLabel2;
-	private JButton jButton0;
+	public JButton jButton0;
 
 	public RoomForm() {
 		initComponents();
 	}
 
-	private void initComponents() {
+	public void initComponents() {
 		setLayout(new GroupLayout());
 		add(getJTextField0(), new Constraints(new Leading(118, 116, 10, 10), new Leading(37, 24, 10, 10)));
 		add(getJLabel0(), new Constraints(new Leading(41, 10, 10), new Leading(41, 12, 12)));
@@ -46,7 +46,7 @@ public class RoomForm extends JPanel {
 		setSize(320, 240);
 	}
 
-	private JButton getJButton0() {
+	public JButton getJButton0() {
 		if (jButton0 == null) {
 			jButton0 = new JButton();
 			jButton0.setText("Save");
@@ -60,21 +60,21 @@ public class RoomForm extends JPanel {
 		return jButton0;
 	}
 
-	private JTextField getJTextField1() {
+	protected JTextField getJTextField1() {
 		if (jTextField1 == null) {
 			jTextField1 = new JTextField();
 		}
 		return jTextField1;
 	}
 
-	private JTextField getJTextField0() {
+	protected JTextField getJTextField0() {
 		if (jTextField0 == null) {
 			jTextField0 = new JTextField();
 		}
 		return jTextField0;
 	}
 
-	private JLabel getJLabel2() {
+	protected JLabel getJLabel2() {
 		if (jLabel2 == null) {
 			jLabel2 = new JLabel();
 			jLabel2.setText("Location");
@@ -82,7 +82,7 @@ public class RoomForm extends JPanel {
 		return jLabel2;
 	}
 
-	private JScrollPane getJScrollPane0() {
+	protected JScrollPane getJScrollPane0() {
 		if (jScrollPane0 == null) {
 			jScrollPane0 = new JScrollPane();
 			jScrollPane0.setViewportView(getJTextArea0());
@@ -97,7 +97,7 @@ public class RoomForm extends JPanel {
 		return jTextArea0;
 	}
 
-	private JLabel getJLabel1() {
+	protected JLabel getJLabel1() {
 		if (jLabel1 == null) {
 			jLabel1 = new JLabel();
 			jLabel1.setText("Capacity");
@@ -105,7 +105,7 @@ public class RoomForm extends JPanel {
 		return jLabel1;
 	}
 
-	private JLabel getJLabel0() {
+	protected JLabel getJLabel0() {
 		if (jLabel0 == null) {
 			jLabel0 = new JLabel();
 			jLabel0.setText("Room No.");

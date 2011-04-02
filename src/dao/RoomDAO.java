@@ -129,5 +129,26 @@ public class RoomDAO extends DAO<Room,Integer> {
 	
 		return true;
 	}
+	
+	public static Room getRoomByNO(int roomNo) {
+		
+		Room room = null;
+		
+		try {
+
+			room = new RoomDAO().queryForId(roomNo);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+
+		} finally {
+
+			DataSource.closeConnection();
+		}
+		
+		return room;
+	}
 
 }
