@@ -41,6 +41,88 @@ public class RoomDAO extends DAO<Room,Integer> {
 		return false;
 	}
 
+	public static boolean addStudentToRoom(int roomNo) {
+
+		Room room = null;
+
+		try {
+
+			room = new RoomDAO().queryForId(roomNo);
+			room.setCount(room.getCount()+1);
+
+			if (room.getCount()<room.getCapacity()) {
+
+				room.setFull(false);
+
+			} else {
+
+				room.setFull(true);
+
+			}
+
+			new RoomDAO().update(room);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+
+		} finally {
+
+			DataSource.closeConnection();
+		}
+
+		return true;
+	}
+
+	public static boolean removeStudentFromRoom(int roomNo) {
+
+		Room room = null;
+
+		try {
+
+			room = new RoomDAO().queryForId(roomNo);
+			room.setCount(room.getCount()-1);
+
+			if (room.getCount()<room.getCapacity()) {
+
+				room.setFull(false);
+
+			} else {
+
+				room.setFull(true);
+
+			}
+
+			new RoomDAO().update(room);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+
+		} finally {
+
+			DataSource.closeConnection();
+		}
+
+		return true;
+	}
+
+	public static boolean roomMigration(int fromRoom, int toRoom) {
+
+		if (addStudentToRoom(toRoom) && removeStudentFromRoom(fromRoom)) {
+
+			return true;
+
+		} else {
+
+			return false;
+
+		}
+
+	}
+
 	public Object[] availableRoomNOS() {
 
 		ArrayList<Integer> rooms = new ArrayList<Integer>();
@@ -70,64 +152,6 @@ public class RoomDAO extends DAO<Room,Integer> {
 		}
 
 		return rooms.toArray();
-	}
-
-	public static boolean roomMigration(int fromRoom, int toRoom) {
-
-		Room room = null;
-
-		try {
-
-			room = new RoomDAO().queryForId(fromRoom);
-
-			if (room.isFull()) {
-
-				room.setFull(false);
-
-			}
-
-			room.setCount(room.getCount()-1);
-			new RoomDAO().update(room);
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return false;
-
-		} finally {
-
-			DataSource.closeConnection();
-
-		}
-
-		try {
-
-			room = new RoomDAO().queryForId(toRoom);
-
-			if (room.getCount()<room.getCapacity()) {
-
-				room.setCount(room.getCount()+1);
-
-			} else {
-
-				room.setFull(true);
-
-			}
-
-			new RoomDAO().update(room);
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return false;
-
-		} finally {
-
-			DataSource.closeConnection();
-
-		}
-
-		return true;
 	}
 
 	public static Room getRoomByNO(int roomNo) {

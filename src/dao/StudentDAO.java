@@ -40,63 +40,7 @@ public class StudentDAO extends DAO<Student,String>{
 		student.setCountry(form.jTextField12.getText());
 		student.setEmailID(form.jTextField13.getText());
 
-		Room room = null;
-
-		try {
-
-			room = new RoomDAO().queryForId(Integer.parseInt(form.jComboBox2.getSelectedItem().toString()));
-
-			if (room.getCount()<room.getCapacity()) {
-
-				room.setCount(room.getCount()+1);
-
-			} else {
-
-				room.setFull(true);
-
-			}
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-
-		} finally {
-
-			DataSource.closeConnection();
-
-		}
-
-		try {
-
-			new RoomDAO().update(room);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-
-		} finally {
-
-			DataSource.closeConnection();
-
-		}
-
-		try {
-
-			student.setRoom(room);
-			new StudentDAO().create(student);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return false;
-
-		} finally {
-
-			DataSource.closeConnection();
-
-		}
+		RoomDAO.addStudentToRoom(Integer.parseInt(form.jComboBox2.getSelectedItem().toString()));
 
 		for (Qualification qualification : form.qualificationData) {
 
@@ -274,7 +218,6 @@ public class StudentDAO extends DAO<Student,String>{
 			student.setFatherName(form.jTextField2.getText());
 			student.setAge(Integer.parseInt(form.jTextField3.getText()));
 			student.setGender(form.jComboBox0.getSelectedItem().toString());
-			//student.setDateOfBirth(form.jTextField5.getText());
 			student.setDateOfBirth(form.datePicker.getDate());
 			student.setNationalID(form.jTextField6.getText());
 			student.setBloodGroup(form.jComboBox1.getSelectedItem().toString());
@@ -285,25 +228,7 @@ public class StudentDAO extends DAO<Student,String>{
 			student.setCountry(form.jTextField12.getText());
 			student.setEmailID(form.jTextField13.getText());
 
-			Room room = null;
-
-			try {
-
-				room = new RoomDAO().queryForId(Integer.parseInt(form.jComboBox2.getSelectedItem().toString()));
-
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return false;
-
-			} finally {
-
-				DataSource.closeConnection();
-
-			}
-
-			System.out.println("Old: "+student.getRoom().getNo()+", New: "+room.getNo());
-			
+			Room room = RoomDAO.getRoomByNO(Integer.parseInt(form.jComboBox2.getSelectedItem().toString()));
 			RoomDAO.roomMigration(student.getRoom().getNo(), room.getNo());
 
 			try {
@@ -448,28 +373,7 @@ public class StudentDAO extends DAO<Student,String>{
 		String studentDelete = "DELETE FROM STUDENT WHERE STD_ID = '"+studentID+"'";
 		String servicesDelete = "DELETE FROM STD_SER WHERE STD_ID = '"+studentID+"'";
 		
-		try {
-
-			Room room = new RoomDAO().queryForId(roomNo);
-			
-			if (room.isFull()) {
-				
-				room.setFull(false);
-				
-			} 
-			
-			room.setCount(room.getCount()-1);
-			new RoomDAO().update(room);
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return false;
-
-		} finally {
-
-			DataSource.closeConnection();
-		}
+		RoomDAO.removeStudentFromRoom(roomNo);
 		
 		boolean transaction = Database.executeTransaction(studentDelete,servicesDelete);
 		
