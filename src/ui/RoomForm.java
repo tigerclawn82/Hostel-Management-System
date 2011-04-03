@@ -42,7 +42,7 @@ public class RoomForm extends JPanel {
 		add(getJLabel1(), new Constraints(new Leading(41, 54, 12, 12), new Leading(79, 12, 12)));
 		add(getJScrollPane0(), new Constraints(new Leading(117, 115, 10, 10), new Leading(118, 49, 10, 10)));
 		add(getJLabel2(), new Constraints(new Leading(41, 54, 12, 12), new Leading(125, 10, 10)));
-		add(getJButton0(), new Constraints(new Leading(170, 12, 12), new Leading(185, 12, 12)));
+		add(getJButton0(), new Constraints(new Leading(170, 12, 12), new Leading(185, 24, 12, 12)));
 		setSize(320, 240);
 	}
 

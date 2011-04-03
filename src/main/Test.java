@@ -21,27 +21,26 @@ public class Test {
 
 	public static void main(String[] args) {
 
+		System.out.println(RoomDAO.deleteRoomNo(2));
+
+	}
+	
+	public static void tableCreator(Class<?> className) {
+		
 		try {
 
-			TableUtils.createTable(DataSource.getConnectionSource(), Qualification.class);
-			
+			TableUtils.createTable(DataSource.getConnectionSource(), className);
+						
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			
 		} finally {
 
-			try {
-
-				DataSource.closeConnection();
-
-			} catch (Exception e2) {
-				// TODO: handle exception
-				e2.printStackTrace();
-			}
+			DataSource.closeConnection();
 
 		}
-
+		
 	}
 
 }

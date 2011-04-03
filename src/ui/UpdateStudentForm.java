@@ -168,7 +168,7 @@ public class UpdateStudentForm extends JPanel {
 		add(getJPanel2(), new Constraints(new Leading(12, 12, 12), new Leading(797, 100, 12, 12)));
 		add(getJPanel1(), new Constraints(new Leading(12, 576, 12, 12), new Leading(432, 347, 12, 12)));
 		add(getJPanel0(), new Constraints(new Leading(14, 576, 10, 10), new Leading(88, 332, 12, 12)));
-		add(getJPanel3(), new Constraints(new Leading(15, 574, 12, 12), new Leading(14, 62, 12, 12)));
+		add(getJPanel3(), new Constraints(new Leading(15, 12, 12), new Leading(14, 62, 12, 12)));
 		add(getJButton1(), new Constraints(new Leading(255, 10, 10), new Leading(907, 10, 10)));
 		add(getJButton0(), new Constraints(new Leading(373, 10, 10), new Leading(907, 10, 10)));
 		add(getJButton4(), new Constraints(new Leading(466, 10, 10), new Leading(907, 10, 10)));
@@ -267,12 +267,12 @@ public class UpdateStudentForm extends JPanel {
 			jPanel3.setBorder(BorderFactory.createTitledBorder(null, "Search By", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new Font("Dialog",
 					Font.BOLD, 12), new Color(51, 51, 51)));
 			jPanel3.setLayout(new GroupLayout());
-			jPanel3.add(getJSpinner0(), new Constraints(new Trailing(12, 41, 423, 448), new Leading(7, 20, 10, 9)));
+			jPanel3.add(getJSpinner0(), new Constraints(new Trailing(12, 41, 423, 448), new Leading(7, 10, 9)));
 			jPanel3.add(getJCheckBox4(), new Constraints(new Leading(36, 93, 10, 10), new Leading(5, 8, 8)));
 			jPanel3.add(getJCheckBox5(), new Constraints(new Leading(140, 93, 10, 10), new Leading(5, 8, 8)));
 			jPanel3.add(getJCheckBox6(), new Constraints(new Leading(230, 62, 10, 10), new Leading(5, 8, 8)));
 			jPanel3.add(getJCheckBox7(), new Constraints(new Leading(323, 122, 10, 10), new Leading(5, 8, 8)));
-			jPanel3.add(getJLabel23(), new Constraints(new Trailing(20, 26, 10, 518), new Leading(-11, 10, 10)));
+			jPanel3.add(getJLabel23(), new Constraints(new Trailing(20, 10, 518), new Leading(-11, 10, 10)));
 		}
 		return jPanel3;
 	}
