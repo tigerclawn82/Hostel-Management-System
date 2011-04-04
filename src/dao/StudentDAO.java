@@ -175,6 +175,20 @@ public class StudentDAO extends DAO<Student,String>{
 		}
 
 
+		try {
+
+			new StudentDAO().create(student);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+
+		} finally {
+
+			DataSource.closeConnection();
+		}
+		
 		return true;
 	}
 

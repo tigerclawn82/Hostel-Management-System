@@ -9,9 +9,9 @@ import java.sql.Statement;
 
 public class Database {
 
+	private static String URL = "jdbc:h2:/"+System.getProperty("user.dir")+"/HMS;AUTO_SERVER=TRUE;MODE=MSSQLServer";
 	private static Connection connection = null;
 	private static Statement statement = null;
-	private static String URL = "jdbc:h2:/"+System.getProperty("user.dir")+"/HMS";
 	private static PreparedStatement pStatement = null;
 
 	public static PreparedStatement getPreparedStatement(String sql) {

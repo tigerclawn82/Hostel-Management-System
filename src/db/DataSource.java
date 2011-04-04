@@ -6,7 +6,7 @@ import com.j256.ormlite.support.ConnectionSource;
 public class DataSource {
 	
 	private static ConnectionSource connectionSource = null;
-	private static String URL = "jdbc:h2:/"+System.getProperty("user.dir")+"/HMS";
+	private static String URL = "jdbc:h2:/"+System.getProperty("user.dir")+"/HMS;AUTO_SERVER=TRUE;MODE=MSSQLServer";
 	
 	public static boolean openConnection() {
 		
