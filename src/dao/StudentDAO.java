@@ -41,6 +41,21 @@ public class StudentDAO extends DAO<Student,String>{
 		student.setEmailID(form.jTextField13.getText());
 
 		RoomDAO.addStudentToRoom(Integer.parseInt(form.jComboBox2.getSelectedItem().toString()));
+		student.setRoom(RoomDAO.getRoomByNO(Integer.parseInt(form.jComboBox2.getSelectedItem().toString())));
+		
+		try {
+
+			new StudentDAO().create(student);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+
+		} finally {
+
+			DataSource.closeConnection();
+		}
 
 		for (Qualification qualification : form.qualificationData) {
 
@@ -172,21 +187,6 @@ public class StudentDAO extends DAO<Student,String>{
 
 			}
 
-		}
-
-
-		try {
-
-			new StudentDAO().create(student);
-
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			return false;
-
-		} finally {
-
-			DataSource.closeConnection();
 		}
 		
 		return true;
@@ -389,7 +389,7 @@ public class StudentDAO extends DAO<Student,String>{
 		
 		RoomDAO.removeStudentFromRoom(roomNo);
 		
-		boolean transaction = Database.executeTransaction(studentDelete,servicesDelete);
+		boolean transaction = Database.executeTransaction(servicesDelete,studentDelete);
 		
 		if (!transaction) {
 			

@@ -123,6 +123,7 @@ public class MendatoryServicesRegistrationForm extends JPanel {
 				} else {
 
 					success = false;
+					break;
 
 				}
 
