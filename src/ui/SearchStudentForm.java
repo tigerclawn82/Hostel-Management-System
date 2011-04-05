@@ -189,7 +189,7 @@ public class SearchStudentForm extends JPanel {
 	private JSpinner getJSpinner0() {
 		if (jSpinner0 == null) {
 			jSpinner0 = new JSpinner();
-			jSpinner0.setModel(new SpinnerNumberModel(1, 1, 10, 1));
+			jSpinner0.setModel(new SpinnerNumberModel(1, 1, 1, 1));
 			jSpinner0.addChangeListener(new ChangeListener() {
 
 				public void stateChanged(ChangeEvent event) {
@@ -263,6 +263,7 @@ public class SearchStudentForm extends JPanel {
 	private JTextField getJTextField20() {
 		if (jTextField20 == null) {
 			jTextField20 = new JTextField();
+			jTextField20.setEditable(false);
 		}
 		return jTextField20;
 	}
@@ -1257,7 +1258,11 @@ public class SearchStudentForm extends JPanel {
 
 		if (studentID!=null) {
 
-			searchByID(studentID[Integer.parseInt(jSpinner0.getValue().toString())-1].toString());
+			if (studentID.length>0) {
+				
+				searchByID(studentID[Integer.parseInt(jSpinner0.getValue().toString())-1].toString());
+				
+			}
 
 		}
 
