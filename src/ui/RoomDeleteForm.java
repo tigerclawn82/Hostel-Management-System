@@ -11,6 +11,8 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import utilities.RoomUtilities;
+
 import dao.RoomDAO;
 
 //VS4E -- DO NOT REMOVE THIS LINE!
@@ -34,20 +36,36 @@ public class RoomDeleteForm extends JPanel {
 					public void mouseClicked(MouseEvent event) {
 
 						if (searchRoomForm0.jTextField0.getText().equals("")) {
-							
+
 							JOptionPane.showMessageDialog(null, "Sorry! Please Enter Room No.");
 
 						} else {
 
 							roomNo = Integer.parseInt(jTextField0.getText());
 
-							if (RoomDAO.deleteRoomNo(roomNo)) {
+							if (RoomDAO.isRoomExist(roomNo)) {
 
-								JOptionPane.showMessageDialog(null, "Room No. "+roomNo+" Deleted!");
+								JOptionPane.showMessageDialog(null, "Room No. "+roomNo+" not Exist!");
 
 							} else {
 
-								JOptionPane.showMessageDialog(null, "Sorry! Room No. "+roomNo+" not Deleted!");
+								if (RoomUtilities.isAnyStudentInRoom(roomNo)) {
+
+									JOptionPane.showMessageDialog(null, "These Students are in this Room: ");
+
+								} else {
+
+									if (RoomDAO.deleteRoomNo(roomNo)) {
+
+										JOptionPane.showMessageDialog(null, "Room No. "+roomNo+" Deleted!");
+
+									} else {
+
+										JOptionPane.showMessageDialog(null, "Sorry! Room No. "+roomNo+" not Deleted!");
+
+									}
+
+								}
 
 							}
 
@@ -71,7 +89,7 @@ public class RoomDeleteForm extends JPanel {
 	private void initComponents() {
 		setLayout(new GroupLayout());
 		add(getSearchRoomForm0(), new Constraints(new Leading(0, 320, 12, 12), new Leading(0, 10, 10)));
-		setSize(320, 335);
+		setSize(320, 381);
 	}
 
 	private SearchRoomForm getSearchRoomForm0() {

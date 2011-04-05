@@ -248,5 +248,18 @@ public class RoomDAO extends DAO<Room,Integer> {
 		
 		return true;
 	}
+	
+	public static boolean isRoomExist(int roomNo){
+		
+		Room room = getRoomByNO(roomNo);
+		
+		if (room!=null) {
+			
+			return true;
+			
+		} 
+		
+		return false;
+	}
 
 }

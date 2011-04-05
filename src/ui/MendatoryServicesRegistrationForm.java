@@ -2,6 +2,7 @@ package ui;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -16,6 +17,8 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import utilities.RegistrationUtilities;
+
 import dao.ServiceDAO;
 
 //VS4E -- DO NOT REMOVE THIS LINE!
@@ -29,27 +32,40 @@ public class MendatoryServicesRegistrationForm extends JPanel {
 	private JPanel jPanel1;
 
 	public MendatoryServicesRegistrationForm() {
+
 		initComponents();
-
-		forms = new MendatoryServicesForm[4];
 		String[] serviceTitles = {"Mess","Internet","Gas","Electricity"};
+		ArrayList<String> notAddedServices = new ArrayList<String>();
+		for (String service : serviceTitles) {
 
-		for (int i = 0; i < serviceTitles.length; i++) {
+			if (!RegistrationUtilities.serviceAdded(service)) {
 
-			forms[i] = new MendatoryServicesForm(serviceTitles[i]);
+				notAddedServices.add(service);
 
-		}
-
-		for (int i = 0; i < 2; i++) {
-
-			jPanel0.add(forms[i]);
+			}
 
 		}
 
-		for (int i = 2; i < 4; i++) {
+		forms = new MendatoryServicesForm[notAddedServices.size()];
 
-			jPanel1.add(forms[i]);
+		for (int i = 0; i < notAddedServices.size(); i++) {
 
+			forms[i] = new MendatoryServicesForm(notAddedServices.get(i));
+
+		}
+
+		for (int i = 0; i < forms.length; i++) {
+			
+			if (i%2==0) {
+				
+				jPanel0.add(forms[i]);
+				
+			} else {
+				
+				jPanel1.add(forms[i]);
+				
+			}
+			
 		}
 
 	}
@@ -95,27 +111,27 @@ public class MendatoryServicesRegistrationForm extends JPanel {
 	private void jButton0MouseMouseClicked(MouseEvent event) {
 
 		boolean success = true;
-		
+
 		try {
 
 			for (int i = 0; i < forms.length; i++) {
-				
+
 				if (new ServiceDAO().registerService(forms[i])) {
 
 					success = true;
-					
+
 				} else {
 
 					success = false;
-					
+
 				}
-				
+
 			}
-			
+
 			if (success) {
-				
+
 				JOptionPane.showMessageDialog(null, Success.SERVICE_REGSISTRATION_SUCCESS);
-				
+
 			} else {
 
 				JOptionPane.showMessageDialog(null, Error.SERVICE_REGISTRATION_FAILED);

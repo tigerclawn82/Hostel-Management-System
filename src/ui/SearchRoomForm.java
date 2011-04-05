@@ -71,12 +71,12 @@ public class SearchRoomForm extends JPanel {
 		add(getJTextField1(), new Constraints(new Leading(117, 116, 10, 87), new Leading(141, 24, 12, 12)));
 		add(getJTextField2(), new Constraints(new Leading(117, 116, 10, 87), new Leading(179, 24, 12, 12)));
 		add(getJLabel3(), new Constraints(new Leading(32, 65, 10, 10), new Leading(183, 12, 12)));
-		add(getJScrollPane0(), new Constraints(new Leading(118, 115, 10, 88), new Leading(220, 49, 12, 12)));
-		add(getJCheckBox0(), new Constraints(new Leading(248, 10, 10), new Leading(179, 24, 10, 132)));
-		add(getJButton1(), new Constraints(new Leading(118, 12, 12), new Leading(283, 24, 12, 12)));
-		add(getJButton0(), new Constraints(new Leading(233, 12, 12), new Leading(283, 24, 12, 12)));
+		add(getJCheckBox0(), new Constraints(new Leading(248, 10, 10), new Leading(179, 10, 132)));
+		add(getJButton1(), new Constraints(new Leading(118, 12, 12), new Leading(332, 24, 10, 10)));
+		add(getJButton0(), new Constraints(new Leading(233, 10, 10), new Leading(332, 24, 10, 10)));
+		add(getJScrollPane0(), new Constraints(new Leading(118, 115, 10, 88), new Leading(220, 82, 10, 10)));
 		initButtonGroup1();
-		setSize(320, 335);
+		setSize(320, 394);
 	}
 
 	private JSpinner getJSpinner0() {
