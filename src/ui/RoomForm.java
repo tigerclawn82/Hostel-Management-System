@@ -18,6 +18,8 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import utilities.IconProcess;
+
 import dao.RoomDAO;
 
 //VS4E -- DO NOT REMOVE THIS LINE!

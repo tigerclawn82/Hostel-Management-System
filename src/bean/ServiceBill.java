@@ -10,7 +10,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@DatabaseTable(tableName="STD_SER")
+@DatabaseTable(tableName="SER_BILL")
 
 /*
  * JUNCTION TABLE OF STUDENT_SERVICE AND BILL

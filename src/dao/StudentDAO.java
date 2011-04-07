@@ -192,7 +192,7 @@ public class StudentDAO extends DAO<Student,String>{
 		return true;
 	}
 
-	public boolean isStudentIDExist(String id) {
+	public static boolean isStudentIDExist(String id) {
 
 		try {
 

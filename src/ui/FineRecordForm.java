@@ -1,11 +1,15 @@
 package ui;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 
+import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
@@ -14,11 +18,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.border.TitledBorder;
 import javax.swing.text.MaskFormatter;
 
+import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
+import org.dyno.visual.swing.layouts.Trailing;
 
 import dao.FineRecordDAO;
 import dao.StudentDAO;
@@ -37,6 +44,10 @@ public class FineRecordForm extends JPanel {
 	private JLabel jLabel4;
 	public JTextArea jTextArea0;
 	private JScrollPane jScrollPane0;
+	private JPanel jPanel0;
+	private JButton jButton1;
+	private JLabel jLabel3;
+	private boolean studentExist = true;
 
 	public FineRecordForm() {
 		initComponents();
@@ -44,16 +55,50 @@ public class FineRecordForm extends JPanel {
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJTextField0(), new Constraints(new Leading(152, 129, 10, 10), new Leading(26, 26, 10, 10)));
-		add(getJTextField1(), new Constraints(new Leading(152, 129, 10, 10), new Leading(71, 26, 12, 12)));
-		add(getJTextField2(), new Constraints(new Leading(152, 129, 10, 10), new Leading(201, 26, 12, 12)));
-		add(getJButton0(), new Constraints(new Leading(219, 10, 10), new Leading(250, 10, 10)));
-		add(getJLabel0(), new Constraints(new Leading(60, 10, 10), new Leading(32, 12, 12)));
-		add(getJLabel1(), new Constraints(new Leading(60, 58, 10, 10), new Leading(76, 12, 12)));
-		add(getJLabel2(), new Constraints(new Leading(60, 58, 10, 10), new Leading(119, 12, 12)));
-		add(getJLabel4(), new Constraints(new Leading(60, 58, 10, 10), new Leading(206, 12, 12)));
-		add(getJScrollPane0(), new Constraints(new Leading(151, 130, 12, 12), new Leading(114, 80, 12, 12)));
-		setSize(350, 300);
+		add(getJPanel0(), new Constraints(new Bilateral(12, 12, 287), new Leading(75, 10, 10)));
+		add(getJLabel0(), new Constraints(new Leading(20, 10, 10), new Leading(29, 10, 10)));
+		add(getJButton0(), new Constraints(new Leading(269, 10, 10), new Leading(326, 12, 12)));
+		add(getJButton1(), new Constraints(new Trailing(12, 120, 120), new Leading(24, 10, 321)));
+		add(getJTextField0(), new Constraints(new Leading(99, 129, 10, 10), new Leading(24, 26, 10, 321)));
+		add(getJLabel3(), new Constraints(new Leading(237, 58, 10, 10), new Leading(29, 12, 12)));
+		setSize(350, 371);
+	}
+
+	private JLabel getJLabel3() {
+		if (jLabel3 == null) {
+			jLabel3 = new JLabel();
+		}
+		return jLabel3;
+	}
+
+	private JButton getJButton1() {
+		if (jButton1 == null) {
+			jButton1 = new JButton();
+			jButton1.setText("Check");
+			jButton1.addMouseListener(new MouseAdapter() {
+	
+				public void mouseClicked(MouseEvent event) {
+					jButton1MouseMouseClicked(event);
+				}
+			});
+		}
+		return jButton1;
+	}
+
+	private JPanel getJPanel0() {
+		if (jPanel0 == null) {
+			jPanel0 = new JPanel();
+			jPanel0.setBorder(BorderFactory.createTitledBorder(null, "Fine Detail", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new Font("Dialog",
+					Font.BOLD, 12), new Color(51, 51, 51)));
+			jPanel0.setLayout(new GroupLayout());
+			jPanel0.add(getJTextField1(), new Constraints(new Leading(136, 129, 10, 10), new Leading(13, 26, 10, 148)));
+			jPanel0.add(getJLabel2(), new Constraints(new Leading(30, 58, 10, 10), new Leading(90, 16, 10, 101)));
+			jPanel0.add(getJLabel1(), new Constraints(new Leading(28, 58, 10, 10), new Leading(18, 12, 12)));
+			jPanel0.add(getJLabel4(), new Constraints(new Leading(30, 58, 10, 10), new Leading(161, 16, 10, 30)));
+			jPanel0.add(getJScrollPane0(), new Constraints(new Leading(135, 130, 10, 51), new Leading(58, 80, 10, 10)));
+			jPanel0.add(getJTextField2(), new Constraints(new Leading(136, 129, 12, 12), new Leading(156, 26, 12, 12)));
+		}
+		return jPanel0;
 	}
 
 	private JScrollPane getJScrollPane0() {
@@ -173,29 +218,41 @@ public class FineRecordForm extends JPanel {
 
 	}
 
-	public void studentIDCheck() {
+	public boolean studentIDCheck() {
 
+		studentExist = StudentDAO.isStudentIDExist(jTextField0.getText());
 
 		try {
 
-			if (new StudentDAO().isStudentIDExist(jTextField0.getText())) {
+			if (studentExist) {
 
 				JOptionPane.showMessageDialog(null, "STUDENT ID EXIST!");
+				jLabel3.setIcon(new ImageIcon(getClass().getResource("/images/tick.png")));
+				return true;
 
 			} else {
 
 				JOptionPane.showMessageDialog(null, "STUDENT ID DOESN'T EXIST!");
+				jLabel3.setIcon(new ImageIcon(getClass().getResource("/images/cross.png")));
 
 			}
 
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			return false;
 		}
 
+		return false;
 	}
 
 	private void jTextField0ActionActionPerformed(ActionEvent event) {
+		
+		studentIDCheck();
+		
+	}
+
+	private void jButton1MouseMouseClicked(MouseEvent event) {
 		
 		studentIDCheck();
 		
