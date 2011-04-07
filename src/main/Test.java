@@ -21,7 +21,7 @@ public class Test {
 
 	public static void main(String[] args) {
 
-		System.out.println(RoomDAO.isRoomExist(45));
+		System.out.println(RoomDAO.isRoomExist(1));
 
 	}
 	

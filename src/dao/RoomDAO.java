@@ -261,5 +261,21 @@ public class RoomDAO extends DAO<Room,Integer> {
 		
 		return false;
 	}
+	
+	public static boolean isRoomFull(int roomNo) {
+		
+		Room room = getRoomByNO(roomNo);
+		
+		if (room.isFull()) {
+			
+			return true;
+			
+		} else {
+
+			return false;
+			
+		}
+		
+	}
 
 }

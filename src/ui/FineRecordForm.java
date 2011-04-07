@@ -6,12 +6,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.ParseException;
+import java.util.Date;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -19,13 +18,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
-import javax.swing.text.MaskFormatter;
 
 import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
+import org.jdesktop.swingx.JXDatePicker;
 
 import dao.FineRecordDAO;
 import dao.StudentDAO;
@@ -91,7 +90,7 @@ public class FineRecordForm extends JPanel {
 			jPanel0.setBorder(BorderFactory.createTitledBorder(null, "Fine Detail", TitledBorder.LEADING, TitledBorder.DEFAULT_POSITION, new Font("Dialog",
 					Font.BOLD, 12), new Color(51, 51, 51)));
 			jPanel0.setLayout(new GroupLayout());
-			jPanel0.add(getJTextField1(), new Constraints(new Leading(136, 129, 10, 10), new Leading(13, 26, 10, 148)));
+			jPanel0.add(getJxDatePicker(), new Constraints(new Leading(136, 129, 10, 10), new Leading(13, 26, 10, 148)));
 			jPanel0.add(getJLabel2(), new Constraints(new Leading(30, 58, 10, 10), new Leading(90, 16, 10, 101)));
 			jPanel0.add(getJLabel1(), new Constraints(new Leading(28, 58, 10, 10), new Leading(18, 12, 12)));
 			jPanel0.add(getJLabel4(), new Constraints(new Leading(30, 58, 10, 10), new Leading(161, 16, 10, 30)));
@@ -181,20 +180,18 @@ public class FineRecordForm extends JPanel {
 		}
 		return jTextField2;
 	}
-
-	private JTextField getJTextField1() {
-		if (jTextField1 == null) {
-			try {
-
-				jTextField1 = new JFormattedTextField(new MaskFormatter("##/##/####"));
-
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+	
+	private JXDatePicker jxDatePicker;
+	@SuppressWarnings("deprecation")
+	public JXDatePicker getJxDatePicker() {
+		
+		if (jxDatePicker==null) {
+			
+			jxDatePicker = new JXDatePicker(new Date("05/19/1990"));
+			
 		}
-		return jTextField1;
+		
+		return jxDatePicker;
 	}
 
 	private void jButton0MouseMouseClicked(MouseEvent event) {
