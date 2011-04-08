@@ -49,5 +49,11 @@ public class RoomUtilities {
 		
 		return false;
 	}
+	
+	public static boolean updateStudentRoomNo(String studentID, int roomNo) {
+		
+		return Database.executeUpdate("UPDATE STUDENT SET R_NO = "+roomNo+" WHERE STD_ID = '"+studentID+"'");
+		
+	}
 
 }

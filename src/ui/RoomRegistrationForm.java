@@ -8,6 +8,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -34,16 +35,21 @@ public class RoomRegistrationForm extends JPanel {
 	private JScrollPane jScrollPane1;
 	private JLabel jLabel1;
 	private JButton jButton0;
+	
+	private JTable jTable0;
+	private JScrollPane jScrollPane2;
+	private JButton jButton1;
 
 	private DefaultListModel listAvailableRooms;
 	private DefaultListModel listStudentIDs;
 	private ArrayList<Room> availableRooms = null;
-	private JTable jTable0;
-	private JScrollPane jScrollPane2;
+	
 	private String[] dataColumns = { "Student ID", "Room No."};
 	private Object[][] jTableData = null;
 	private ArrayList<String> studentIDs = new ArrayList<String>();
 	private ArrayList<Integer> roomNos = new ArrayList<Integer>();
+	
+	int roomNo = 0;
 
 	public RoomRegistrationForm() {
 		initComponents();
@@ -53,7 +59,8 @@ public class RoomRegistrationForm extends JPanel {
 
 	public RoomRegistrationForm(int roomNo) {
 		this();
-		availableRooms = RoomDAO.getAvailableRooms();
+		this.roomNo = roomNo;
+		availableRooms = RoomDAO.getAvailableRoomsExcluding(roomNo);
 		populateAvailableRoomsListExcluding(roomNo);
 		populateStudentIDsInRoom(roomNo);
 	}
@@ -64,9 +71,24 @@ public class RoomRegistrationForm extends JPanel {
 		add(getJScrollPane1(), new Constraints(new Leading(180, 131, 10, 10), new Leading(74, 135, 10, 10)));
 		add(getJLabel0(), new Constraints(new Leading(46, 12, 12), new Leading(48, 10, 10)));
 		add(getJLabel1(), new Constraints(new Leading(193, 104, 12, 12), new Leading(52, 12, 12)));
-		add(getJScrollPane2(), new Constraints(new Leading(12, 299, 12, 12), new Leading(251, 150, 10, 10)));
-		add(getJButton0(), new Constraints(new Leading(133, 12, 12), new Leading(223, 20, 10, 10)));
-		setSize(320, 465);
+		add(getJButton0(), new Constraints(new Leading(124, 74, 12, 12), new Leading(227, 24, 12, 12)));
+		add(getJScrollPane2(), new Constraints(new Leading(12, 299, 12, 12), new Leading(269, 150, 48, 48)));
+		add(getJButton1(), new Constraints(new Leading(15, 74, 10, 10), new Leading(437, 24, 12, 12)));
+		setSize(320, 483);
+	}
+
+	private JButton getJButton1() {
+		if (jButton1 == null) {
+			jButton1 = new JButton();
+			jButton1.setText("Save");
+			jButton1.addMouseListener(new MouseAdapter() {
+	
+				public void mouseClicked(MouseEvent event) {
+					jButton1MouseMouseClicked(event);
+				}
+			});
+		}
+		return jButton1;
 	}
 
 	private JScrollPane getJScrollPane2() {
@@ -252,10 +274,15 @@ public class RoomRegistrationForm extends JPanel {
 
 				if (room.getCount()==room.getCapacity()) {
 
-					listAvailableRooms.removeElement(room.getNo());
+					room.setFull(true);
 
+				} else {
+					
+					room.setFull(false);
+					
 				}
 
+				listAvailableRooms.removeElement(room.getNo());
 			}
 
 		}
@@ -293,6 +320,50 @@ public class RoomRegistrationForm extends JPanel {
 		}
 		
 		return 0;
+	}
+
+	private void jButton1MouseMouseClicked(MouseEvent event) {
+		
+		if (processUpdateDetails()) {
+			
+			JOptionPane.showMessageDialog(null, "Students are assigned new Rooms!\nAlso Room No. "+roomNo+" is Deleted!");
+			
+		} else {
+
+			JOptionPane.showMessageDialog(null, "Sorry! Assigning Students new Rooms Failed!");
+		}
+		
+	}
+	
+	public void updateStudentsDetails() {
+		
+		int rowCount = jTable0.getRowCount();
+		for (int i = 0; i < rowCount; i++) {
+			
+			RoomUtilities.updateStudentRoomNo(jTable0.getValueAt(i, 0).toString(),Integer.parseInt(jTable0.getValueAt(i, 1).toString()));
+			
+		}
+		
+	}
+	
+	public void updateRoomsDetails() {
+		
+		for (Room room : availableRooms) {
+			
+			RoomDAO.UpdateRoom(room);
+			
+		}
+		
+		RoomDAO.deleteRoomNo(this.roomNo);
+		
+	}
+	
+	public boolean processUpdateDetails() {
+		
+		updateStudentsDetails();
+		updateRoomsDetails();
+		
+		return true;
 	}
 
 }

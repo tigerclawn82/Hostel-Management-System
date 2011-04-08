@@ -93,6 +93,24 @@ public class RoomDAO extends DAO<Room,Integer> {
 
 		return true;
 	}
+	
+	public static boolean UpdateRoom(Room room) {
+
+		try {
+
+			return new RoomDAO().update(room)==1;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+
+		} finally {
+
+			DataSource.closeConnection();
+		}
+
+		return true;
+	}
 
 	public static boolean addStudentToRoom(int roomNo) {
 
@@ -340,6 +358,23 @@ public class RoomDAO extends DAO<Room,Integer> {
 			DataSource.closeConnection();
 		}
 
+		return availableRooms;
+	}
+	
+	public static ArrayList<Room> getAvailableRoomsExcluding(int roomNo){
+		
+		ArrayList<Room> availableRooms = getAvailableRooms();
+		
+		for (int i = 0; i < availableRooms.size(); i++) {
+			
+			if (availableRooms.get(i).getNo()==roomNo) {
+				
+				availableRooms.remove(i);
+				
+			}
+			
+		}
+		
 		return availableRooms;
 	}
 
