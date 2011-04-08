@@ -1,77 +1,191 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset='utf-8'>
 
-  <title>tigerclawn82/Hostel-Management-System @ GitHub</title>
-
-  <style type="text/css">
-    body {
-      margin-top: 1.0em;
-      background-color: #d6548d;
-      font-family: Helvetica, Arial, FreeSans, san-serif;
-      color: #000000;
-    }
-    #container {
-      margin: 0 auto;
-      width: 700px;
-    }
-    h1 { font-size: 3.8em; color: #29ab72; margin-bottom: 3px; }
-    h1 .small { font-size: 0.4em; }
-    h1 a { text-decoration: none }
-    h2 { font-size: 1.5em; color: #29ab72; }
-    h3 { text-align: center; color: #29ab72; }
-    a { color: #29ab72; }
-    .description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
-    .download { float: right; }
-    pre { background: #000; color: #fff; padding: 15px;}
-    hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-    .footer { text-align:center; padding-top:30px; font-style: italic; }
-  </style>
-</head>
-
-<body>
-  <a href="http://github.com/tigerclawn82/Hostel-Management-System"><img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" /></a>
-
-  <div id="container">
-
-    <div class="download">
-      <a href="http://github.com/tigerclawn82/Hostel-Management-System/zipball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/zip.png"></a>
-      <a href="http://github.com/tigerclawn82/Hostel-Management-System/tarball/master">
-        <img border="0" width="90" src="http://github.com/images/modules/download/tar.png"></a>
-    </div>
-
-    <h1><a href="http://github.com/tigerclawn82/Hostel-Management-System">Hostel-Management-System</a>
-      <span class="small">by <a href="http://github.com/tigerclawn82">tigerclawn82</a></span></h1>
-
-    <div class="description">
-      Simple Hostel Management System, Developed in JAVA
-    </div>
-
-    <h2>Authors</h2>
-<p>016-bscs-09 (016-bscs-09@mlab-36.gcu-csd.gcu.edu.pk)<br/>020-bscs-09 (020-bscs-09@mlab-33.gcu-csd.gcu.edu.pk)<br/>Waqas Ahmed (tigerclawn82@gmail.com)<br/><br/>      </p>
-<h2>Contact</h2>
-<p> (tigerclawn82@gmail.com)<br/>      </p>
-
-
-    <h2>Download</h2>
-    <p>
-      You can download this project in either
-      <a href="http://github.com/tigerclawn82/Hostel-Management-System/zipball/master">zip</a> or
-      <a href="http://github.com/tigerclawn82/Hostel-Management-System/tarball/master">tar</a> formats.
-    </p>
-    <p>You can also clone the project with <a href="http://git-scm.com">Git</a>
-      by running:
-      <pre>$ git clone git://github.com/tigerclawn82/Hostel-Management-System</pre>
-    </p>
-
-    <div class="footer">
-      get the source code on GitHub : <a href="http://github.com/tigerclawn82/Hostel-Management-System">tigerclawn82/Hostel-Management-System</a>
-    </div>
-
-  </div>
-
-  
-</body>
-</html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<title>Alexandru Cohaniuc - web design and development portfolio</title> 
+<link href="reset.css" rel="stylesheet" type="text/css" /> 
+<link href="layout.css" rel="stylesheet" type="text/css" /> 
+<link href="multibox.css" rel="stylesheet" type="text/css" /> 
+<script type="text/javascript" src="mootools.js"></script> 
+<script type="text/javascript" src="multibox.js"></script> 
+<script type="text/javascript"> 
+ 
+		window.addEvent('domready', function(){
+			var accordion = new Accordion('div.atStart', 'div.aStart', {
+				opacity: false, duration:500, wait: false, transition:Fx.Transitions.Circ.easeOut, 
+				onActive: function(toggler, element){
+					toggler.toggleClass('selected');
+				},
+				
+				onBackground: function(toggler, element){
+ 
+					toggler.removeClass('selected');
+				}
+				
+			}, $('accordion'));
+			
+			
+			
+			$('myForm').addEvent('submit', function(e) {
+ 
+			new Event(e).stop();
+			var log = $('log_res').empty().addClass('ajax-loading');
+			this.send({
+				update: log,
+				onComplete: function() {
+					log.removeClass('ajax-loading');
+				}
+			});
+			});	
+			
+			
+	$('submitter').addEvent('mouseenter', webnavEnter = function() 
+	{
+		this.setStyle('background-position','bottom');													
+	});
+	
+	$('submitter').addEvent('mouseleave', webnavLeave = function() 
+	{
+		this.setStyle('background-position','top');												
+	});
+	
+	
+	
+	$$('.toggler').addEvent('mouseenter', webnavEnter = function() 
+	{
+		this.setStyle('background-position','bottom');													
+	});
+	
+	$$('.toggler').addEvent('mouseleave', webnavLeave = function() 
+	{
+		this.setStyle('background-position','top');													
+	});
+ 
+ 
+			new MultiBox('mb', {descClassName: 'multiBoxDesc'});
+ 
+ 
+			var Tips1 = new Tips($$('.tip'));
+ 
+ 
+ 
+		}); 
+ 
+</script> 
+</head> 
+<body> 
+<div id="wrapper"> 
+  <div id="main"> 
+    <div id="logo"><a href="http://www.alexcohaniuc.com/">Alexandru Cohaniuc</a></div> 
+    <div id="column1"> 
+      <div class="block" id="portfolio"> 
+        <h2 id="portfoliotext">Portfolio</h2> 
+        <div id="portfolio-top"></div> 
+        <div class="block-content" id="portfolio-content"> 
+          <p></p> 
+          <h3 id="websites">Websites</h3> 
+          <div id="accordion"> 
+            <div id="websitesm"> 
+            
+              <div class="toggler atStart">creativeguitar.org</div> 
+              <div class="element aStart"><a class="mb" id="mb1" title="CreativeGuitar.org - The Classical Guitarist Website" href="images/work/websites/creativeguitar-full.jpg"><img src="images/work/websites/creativeguitar.jpg" class="tip" title="click here :: for the full view and the description" alt="creativeguitar.org" width="460" height="160" /></a></div> 
+              <div class="multiBoxDesc mb1">A classical guitar resource website and blog. The total time worked on this project is 30 hours. The work includes design and developing the theme for the content management system Drupal. <a href="http://www.creativeguitar.org/">Go to the website</a></div> 
+              <div class="toggler atStart">my-software.co.uk</div> 
+              <div class="element aStart"><a class="mb" id="mb2" title="My-Software.co.uk - developing award-winning personalised gift making software" href="images/work/websites/my-software-full.jpg"><img class="tip" title="click here ::  for the full view and the description" src="images/work/websites/my-software.jpg" alt="my-software.co.uk" width="460" height="160" /></a></div> 
+                            <div class="multiBoxDesc mb2">www.My-Software.co.uk is a company that specializes on developing personalised gift software. The work on the website included to fully designing the website and importing the content. <a href="http://www.my-software.co.uk/">Go to the website</a></div> 
+                            
+              <div class="toggler atStart">ilyil.com - The News Portal</div> 
+              <div class="element aStart"><img src="images/work/websites/ilyil.jpg" alt="ilyil" width="460" height="160" /></div> 
+            </div> 
+            <h3 id="logos">Logos &amp; Identity</h3> 
+            <div id="logosm"> 
+              <div class="toggler atStart">carlist.ie</div> 
+              <div class="element aStart"><img src="images/work/logos/carlist.jpg" alt="carlist.ie" width="460" height="160" /></div> 
+              <div class="toggler atStart">yung lifa</div> 
+              <div class="element aStart"><img src="images/work/logos/yl.jpg" alt="yung lifa" width="460" height="160" /></div> 
+              <div class="toggler atStart">QuickTel</div> 
+              <div class="element aStart"><img src="images/work/logos/quicktel.jpg" alt="quicktel" width="460" height="160" /></div> 
+            </div> 
+          </div> 
+          <div id="copyright"> 
+            <div id="copyright-text">Copyright 2008 Cohaniuc Alexandru</div> 
+          </div> 
+        </div> 
+        <div class="block-bottom"></div> 
+      </div> 
+    </div> 
+    <div id="column2"> 
+      <div class="block" id="about"> 
+        <div id="about-tape"></div> 
+        <div id="about-band"></div> 
+        <div class="block-top"></div> 
+        <div class="block-content"> 
+          <div id="about-paper"> 
+            <div id="hi-text"></div> 
+            <div id="about-text"> 
+              <p>I was born on May 27th 1988 in Chisinau, Moldova and currently study  computer science at the Babes - Bolyai university Cluj - Napoca,  Romania.<br /> 
+                <br /> 
+I started web design and development about 6 years ago and have enjoyed  working as a freelancer for the past 3 years. I am currently available  for freelance work, if you would like to hire me please use the contact  form below to get in touch with me.</p> 
+            </div> 
+          </div> 
+        </div> 
+        <div class="block-bottom"></div> 
+      </div> 
+      <div class="block" id="contact"> 
+        <div class="block-top"></div> 
+        <div class="block-content"> 
+          <div id="contact-band"></div> 
+          <div id="contact-content"> 
+            <h3 id="contact-text">Contact</h3> 
+            <div id="freelance">I’m available for freelance work</div> 
+            <form id="myForm" action="send.php" method="get" name="myForm"> 
+              <div id="form_box"> 
+                <div> 
+                  <p> First Name: </p> 
+                  <input class="fieldclass" type="text" name="first_name" value="" /> 
+                </div> 
+                <div> 
+                  <p> Last Name: </p> 
+                  <input class="fieldclass"  type="text" name="last_name" value="" /> 
+                </div> 
+                <div> 
+                  <p> E-Mail: </p> 
+                  <input class="fieldclass"  type="text" name="e_mail" value="" /> 
+                </div> 
+                <div> 
+                  <p> Message: </p> 
+                  <textarea class="fieldclass"  name="message" cols="40" rows="5"></textarea> 
+                </div> 
+                <div class="hr"> 
+                  <!-- spanner --> 
+                </div> 
+                <input name="button" type="submit" id="submitter" value=" " /> 
+              </div> 
+            </form> 
+            <div id="log"> 
+              <div id="log_res"> 
+                <!-- spanner --> 
+              </div> 
+            </div> 
+          </div> 
+        </div> 
+        <div class="block-bottom"></div> 
+      </div> 
+    </div> 
+    <br class="clear" /> 
+  </div> 
+</div> 
+ 
+<script type="text/javascript"> 
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script> 
+<script type="text/javascript"> 
+var pageTracker = _gat._getTracker("UA-1483109-4");
+pageTracker._initData();
+pageTracker._trackPageview();
+</script> 
+<script type="text/javascript" src="http://designads.com/da_js.php?site=12"></script> 
+</body> 
+</html> 
