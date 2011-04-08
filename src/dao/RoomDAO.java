@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ui.RoomForm;
+import ui.RoomUpdateForm;
 
 import db.DataSource;
 
@@ -39,6 +40,58 @@ public class RoomDAO extends DAO<Room,Integer> {
 		}
 
 		return false;
+	}
+
+	public static boolean deleteRoomNo(int roomNo) {
+
+		try {
+
+			return new RoomDAO().delete(getRoomByNO(roomNo))==1;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+
+		} finally {
+
+			DataSource.closeConnection();
+		}
+
+		return true;
+	}
+
+	public static boolean UpdateRoom(RoomUpdateForm form) {
+
+		int roomNo = Integer.parseInt(form.searchRoomForm0.jTextField0.getText());
+		Room room = getRoomByNO(roomNo);
+
+		room.setCapacity(Integer.parseInt(form.searchRoomForm0.jTextField1.getText()));
+		room.setLocation(form.searchRoomForm0.jTextArea0.getText());
+
+		if (room.getCount()<room.getCapacity()) {
+
+			room.setFull(false);
+
+		} else {
+
+			room.setFull(true);
+
+		}
+
+		try {
+
+			return new RoomDAO().update(room)==1;
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+
+		} finally {
+
+			DataSource.closeConnection();
+		}
+
+		return true;
 	}
 
 	public static boolean addStudentToRoom(int roomNo) {
@@ -230,52 +283,64 @@ public class RoomDAO extends DAO<Room,Integer> {
 
 		return roomNos.toArray();
 	}
-	
-	public static boolean deleteRoomNo(int roomNo) {
-		
+
+	public static boolean isRoomExist(int roomNo){
+
+		Room room = getRoomByNO(roomNo);
+
+		if (room!=null) {
+
+			return true;
+
+		} 
+
+		return false;
+	}
+
+	public static boolean isRoomFull(int roomNo) {
+
+		Room room = getRoomByNO(roomNo);
+
+		if (room.isFull()) {
+
+			return true;
+
+		} else {
+
+			return false;
+
+		}
+
+	}
+
+	public static ArrayList<Room> getAvailableRooms(){
+
+		ArrayList<Room> availableRooms = new ArrayList<Room>();
+
 		try {
 
-			return new RoomDAO().delete(getRoomByNO(roomNo))==1;
+			List<Room> queryForAll = new RoomDAO().queryForAll();
+			for (Room room : queryForAll) {
+
+				if (!room.isFull()) {
+
+					availableRooms.add(room);
+
+				}
+
+			}
 
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			return null;
 
 		} finally {
 
 			DataSource.closeConnection();
 		}
-		
-		return true;
-	}
-	
-	public static boolean isRoomExist(int roomNo){
-		
-		Room room = getRoomByNO(roomNo);
-		
-		if (room!=null) {
-			
-			return true;
-			
-		} 
-		
-		return false;
-	}
-	
-	public static boolean isRoomFull(int roomNo) {
-		
-		Room room = getRoomByNO(roomNo);
-		
-		if (room.isFull()) {
-			
-			return true;
-			
-		} else {
 
-			return false;
-			
-		}
-		
+		return availableRooms;
 	}
 
 }

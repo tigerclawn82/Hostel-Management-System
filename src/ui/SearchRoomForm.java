@@ -44,7 +44,7 @@ public class SearchRoomForm extends JPanel {
 	private JLabel jLabel2;
 	public JButton jButton0;
 	private JPanel jPanel0;
-	private JTextField jTextField2;
+	public JTextField jTextField2;
 	private JLabel jLabel3;
 	private JCheckBox jCheckBox0;
 	private JButton jButton1;
@@ -160,6 +160,7 @@ public class SearchRoomForm extends JPanel {
 	private JTextField getJTextField2() {
 		if (jTextField2 == null) {
 			jTextField2 = new JTextField();
+			jTextField2.setEditable(false);
 		}
 		return jTextField2;
 	}

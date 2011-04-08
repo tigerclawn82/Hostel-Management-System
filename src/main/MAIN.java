@@ -18,6 +18,7 @@ import ui.MessRecordForm;
 import ui.RoomDeleteForm;
 import ui.RoomForm;
 import ui.RoomRegistrationForm;
+import ui.RoomUpdateForm;
 import ui.SearchRoomForm;
 import ui.SearchStudentForm;
 import ui.ServiceForm;
@@ -69,7 +70,7 @@ public class MAIN extends JFrame {
 				MAIN frame = new MAIN();
 				frame.setDefaultCloseOperation(MAIN.EXIT_ON_CLOSE);
 				frame.setTitle("MAIN");
-				frame.setContentPane(new JScrollPane(new RoomRegistrationForm(2)));
+				frame.setContentPane(new JScrollPane(new RoomRegistrationForm(1)));
 				frame.getContentPane().setPreferredSize(frame.getSize());
 				frame.pack();
 				frame.setLocationRelativeTo(null);

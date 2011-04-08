@@ -322,7 +322,6 @@ public class Database {
 	public static boolean executeTransaction(String... queries){
 
 		StringBuilder sql = new StringBuilder();
-		//sql.append("BEGIN TRAN \n\n");
 
 		for (String query : queries) {
 
