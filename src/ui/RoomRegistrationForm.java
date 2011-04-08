@@ -11,6 +11,7 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
+import utilities.RoomUtilities;
 import dao.RoomDAO;
 
 //VS4E -- DO NOT REMOVE THIS LINE!
@@ -27,11 +28,15 @@ public class RoomRegistrationForm extends JPanel {
 	private JButton jButton0;
 	
 	private DefaultListModel listAvailableRooms;
-	DefaultListModel listStudentIDs;
-
+	private DefaultListModel listStudentIDs;
 	public RoomRegistrationForm() {
 		initComponents();
-		populateAvailableRoomsListExcluding(2);
+	}
+	
+	public RoomRegistrationForm(int roomNo) {
+		initComponents();
+		populateAvailableRoomsListExcluding(roomNo);
+		populateStudentIDsInRoom(roomNo);
 	}
 
 	private void initComponents() {
@@ -40,7 +45,7 @@ public class RoomRegistrationForm extends JPanel {
 		add(getJScrollPane1(), new Constraints(new Leading(180, 131, 10, 10), new Leading(74, 135, 10, 10)));
 		add(getJLabel0(), new Constraints(new Leading(46, 12, 12), new Leading(48, 10, 10)));
 		add(getJLabel1(), new Constraints(new Leading(193, 104, 12, 12), new Leading(52, 12, 12)));
-		add(getJButton0(), new Constraints(new Leading(130, 10, 10), new Leading(234, 10, 10)));
+		add(getJButton0(), new Constraints(new Leading(130, 10, 10), new Leading(234, 20, 10, 10)));
 		setSize(320, 296);
 	}
 
@@ -108,17 +113,46 @@ public class RoomRegistrationForm extends JPanel {
 			
 			Object[] notFullRoomNos = RoomDAO.getNotFullRoomNos();
 			
-			for (Object object : notFullRoomNos) {
+			if (notFullRoomNos!=null) {
 				
-				if (Integer.parseInt(object.toString())!=roomNo) {
+				for (Object object : notFullRoomNos) {
 					
-					listAvailableRooms.addElement(object);
+					if (Integer.parseInt(object.toString())!=roomNo) {
+						
+						listAvailableRooms.addElement(object);
+						
+					} 
 					
-				} 
+				}
+				
+				jList1.setModel(listAvailableRooms);
 				
 			}
 			
-			jList1.setModel(listAvailableRooms);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void populateStudentIDsInRoom(int roomNo) {
+		
+		try {
+			
+			String[] studentIDsInRoom = RoomUtilities.getStudentIDsInRoom(roomNo);
+			
+			if (studentIDsInRoom!=null) {
+				
+				for (String studentID : studentIDsInRoom) {
+					
+					listStudentIDs.addElement(studentID);
+					
+				}
+				
+				jList0.setModel(listStudentIDs);
+				
+			}
 			
 		} catch (Exception e) {
 			// TODO: handle exception
