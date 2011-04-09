@@ -19,6 +19,7 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
 import utilities.IconProcess;
+import utilities.Utilities;
 
 import dao.RoomDAO;
 
@@ -35,9 +36,9 @@ public class RoomForm extends JPanel {
 	private JLabel jLabel2;
 	public JButton jButton0;
 	private JLabel jLabel3;
-	
+
 	private boolean isRoomExist = false;
-	
+
 	public RoomForm() {
 		initComponents();
 	}
@@ -67,7 +68,7 @@ public class RoomForm extends JPanel {
 			jButton0 = new JButton();
 			jButton0.setText("Save");
 			jButton0.addMouseListener(new MouseAdapter() {
-	
+
 				public void mouseClicked(MouseEvent event) {
 					jButton0MouseMouseClicked(event);
 				}
@@ -87,7 +88,7 @@ public class RoomForm extends JPanel {
 		if (jTextField0 == null) {
 			jTextField0 = new JTextField();
 			jTextField0.addFocusListener(new FocusAdapter() {
-	
+
 				public void focusLost(FocusEvent event) {
 					jTextField0FocusFocusLost(event);
 				}
@@ -136,48 +137,54 @@ public class RoomForm extends JPanel {
 	}
 
 	private void jButton0MouseMouseClicked(MouseEvent event) {
-		
+
 		if (isRoomExist) {
-			
+
 			JOptionPane.showMessageDialog(null, "SorrY! Room No. "+jTextField0.getText()+" already Exist!");
-			
+
 		} else {
 
 			try {
-				
+
 				if (new RoomDAO().registerRoom(this)) {
-					
+
 					JOptionPane.showMessageDialog(null, "ROOM ADDED!");
-					
+
 				} else {
 
 					JOptionPane.showMessageDialog(null, "FAILED! CHECK THE FORM AGAIN!");
-					
+
 				}
-				
+
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
 			}
-			
+
 		}
-		
+
 	}
 
 	private void jTextField0FocusFocusLost(FocusEvent event) {
-		
-		isRoomExist = RoomDAO.isRoomExist(Integer.parseInt(jTextField0.getText()));
-		
-		if (isRoomExist) {
-		
-			jLabel3.setIcon(new ImageIcon(getClass().getResource("/images/cross.png")));
-			
+
+		if(Utilities.isNotEmptyFields(jTextField0)){
+
+			isRoomExist = RoomDAO.isRoomExist(Integer.parseInt(jTextField0.getText()));
+
+			if (isRoomExist) {
+
+				jLabel3.setIcon(new ImageIcon(getClass().getResource("/images/cross.png")));
+
+			} else {
+
+				jLabel3.setIcon(new ImageIcon(getClass().getResource("/images/tick.png")));
+			}
+
 		} else {
 
-			jLabel3.setIcon(new ImageIcon(getClass().getResource("/images/tick.png")));
-			
+			JOptionPane.showMessageDialog(null, "Room No Can't Be Left Blank !!");
 		}
-		
-	}
 
+	}
+	
 }

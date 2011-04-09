@@ -53,7 +53,7 @@ public class UpdateStudentForm extends JPanel {
 	/*
 	 * FOR STUDENT INFORMATION
 	 */
-	
+
 	public Student student = null;
 	public List<Qualification> qualificationData = null;
 	public String[] serviceTitle = null;
@@ -283,7 +283,7 @@ public class UpdateStudentForm extends JPanel {
 			jCheckBox7.setSelected(true);
 			jCheckBox7.setText("Father Name");
 			jCheckBox7.addItemListener(new ItemListener() {
-	
+
 				public void itemStateChanged(ItemEvent event) {
 					jCheckBox7ItemItemStateChanged(event);
 				}
@@ -1086,40 +1086,31 @@ public class UpdateStudentForm extends JPanel {
 
 	public void updateQualificationData() {
 
-		if(Utilities.isNotEmptyFields(jTextField4,jTextField15,jTextField16,jTextField7,jTextField14,jTextField17)){
+		if(validateQualificatioInputs()){
 
-			if(Integer.parseInt(jTextField17.getText()) < Integer.parseInt(jTextField16.getText()) ){
-				
-				if (isNewEntry(jTextField4.getText())) {
+			if (isNewEntry(jTextField4.getText())) {
 
-					Qualification qualification = new Qualification();
-					qualification.setTitle(jTextField4.getText());
-					qualification.setInstitute(jTextField7.getText());
-					qualification.setDuration(Integer.parseInt(jTextField14.getText()));
-					qualification.setYearOfPassing(jTextField15.getText());
-					qualification.setTotalMarks(Integer.parseInt(jTextField16.getText()));
-					qualification.setObtainedMarks(Integer.parseInt(jTextField17.getText())); 
-					qualification.setPercentage((Double.valueOf(jTextField17.getText()) / Double.valueOf(jTextField16.getText()))*100);
+				Qualification qualification = new Qualification();
+				qualification.setTitle(jTextField4.getText());
+				qualification.setInstitute(jTextField7.getText());
+				qualification.setDuration(Integer.parseInt(jTextField14.getText()));
+				qualification.setYearOfPassing(jTextField15.getText());
+				qualification.setTotalMarks(Integer.parseInt(jTextField16.getText()));
+				qualification.setObtainedMarks(Integer.parseInt(jTextField17.getText())); 
+				qualification.setPercentage((Double.valueOf(jTextField17.getText()) / Double.valueOf(jTextField16.getText()))*100);
 
-					qualificationData.add(qualification);
-
-				} else {
-
-					JOptionPane.showMessageDialog(null, jTextField4.getText()+" ALREADY ADDED!!!");
-
-				}
-
+				qualificationData.add(qualification);
 
 			} else {
 
-				JOptionPane.showMessageDialog(null, "Total Marks Cannot Be Less Than Obtained Marks!!");
+				JOptionPane.showMessageDialog(null, jTextField4.getText()+" ALREADY ADDED!!!");
 			}
-			
+
 		} else {
 
-			JOptionPane.showMessageDialog(null, "Please Enter All Educational Information!");
-
+			// DO NOTHING
 		}
+
 	}
 
 	public boolean isNewEntry(String title) {
@@ -1264,7 +1255,7 @@ public class UpdateStudentForm extends JPanel {
 			}
 
 		}
-		
+
 		jComboBox2.setSelectedItem(student.getRoom().getNo());
 
 	}
@@ -1458,20 +1449,27 @@ public class UpdateStudentForm extends JPanel {
 
 	public void processQualificationUpdate() {
 
-		Qualification qualification = new Qualification();
-		qualification.setTitle(jTextField4.getText());
-		qualification.setInstitute(jTextField7.getText());
-		qualification.setDuration(Integer.parseInt(jTextField14.getText()));
-		qualification.setYearOfPassing(jTextField15.getText());
-		qualification.setTotalMarks(Integer.parseInt(jTextField16.getText()));
-		qualification.setObtainedMarks(Integer.parseInt(jTextField17.getText())); 
-		qualification.setPercentage((Double.valueOf(jTextField17.getText()) / Double.valueOf(jTextField16.getText()))*100);
+		if(validateQualificatioInputs()){
 
-		qualificationData.remove(updateIndex);
-		qualificationData.add(updateIndex, qualification);
+			Qualification qualification = new Qualification();
+			qualification.setTitle(jTextField4.getText());
+			qualification.setInstitute(jTextField7.getText());
+			qualification.setDuration(Integer.parseInt(jTextField14.getText()));
+			qualification.setYearOfPassing(jTextField15.getText());
+			qualification.setTotalMarks(Integer.parseInt(jTextField16.getText()));
+			qualification.setObtainedMarks(Integer.parseInt(jTextField17.getText())); 
+			qualification.setPercentage((Double.valueOf(jTextField17.getText()) / Double.valueOf(jTextField16.getText()))*100);
 
-		updateJTable();
+			qualificationData.remove(updateIndex);
+			qualificationData.add(updateIndex, qualification);
 
+			updateJTable();
+
+
+		} else {
+
+			// DO NOTHING
+		}
 	}
 
 	private void jButton4MouseMouseClicked(MouseEvent event) {
@@ -1500,6 +1498,47 @@ public class UpdateStudentForm extends JPanel {
 			JOptionPane.showMessageDialog(null, "Required Fields Cannot Be Left Blank!!");
 		}
 
+	}
+
+	public boolean validateQualificatioInputs(){
+
+		if(Utilities.isNotEmptyFields(jTextField4,jTextField15,jTextField16,jTextField7,jTextField14,jTextField17)){
+
+			if(Utilities.invalidCharacters(jTextField4,jTextField15,jTextField16,jTextField7,jTextField14,jTextField17)){
+
+				if(Utilities.checkCharacters(jTextField15,jTextField16,jTextField17)){
+
+					if(Integer.parseInt(jTextField17.getText()) < Integer.parseInt(jTextField16.getText()) ){
+
+
+					} else {
+
+						JOptionPane.showMessageDialog(null, "TOTAL MARKS CAN'T BE LESS THAN OBTAINED MARKS!!");
+						return false;
+					}
+
+				} else {
+
+					JOptionPane.showMessageDialog(null, "CHARACTERS NOT ALLOWED !!");
+					return false;
+
+				}
+
+			} else {
+
+				JOptionPane.showMessageDialog(null, "PLEASE REMOVE INVALID CHARACTERS !!");
+				return false;
+
+			}
+
+		} else {
+
+			JOptionPane.showMessageDialog(null, "PLEASE ENTER COMPLETE EDUCATIONAL INFO!!");
+			return false;
+		}
+
+
+		return true;
 	}
 
 }

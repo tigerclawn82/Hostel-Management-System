@@ -4,15 +4,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
@@ -167,7 +170,13 @@ public class ServiceRegistrationForm extends JPanel {
 
 	private JTextField getJTextField0() {
 		if (jTextField0 == null) {
-			jTextField0 = new JTextField();
+			try {
+				
+				jTextField0 = new JFormattedTextField(new MaskFormatter("###-UUUU-####"));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			jTextField0.addActionListener(new ActionListener() {
 
 				public void actionPerformed(ActionEvent event) {

@@ -35,6 +35,7 @@ import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 import org.jdesktop.swingx.JXDatePicker;
 
+import utilities.EmailValidator;
 import utilities.Utilities;
 
 import bean.Qualification;
@@ -124,15 +125,15 @@ public class StudentForm extends JPanel {
 
 	private JFormattedTextField getJFormattedTextField0() {
 		if (jFormattedTextField0 == null) {
-			
+
 			try {
-				
+
 				jFormattedTextField0 = new JFormattedTextField(new MaskFormatter("###-UUUU-####"));
-				
+
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				
+
 			}
 		}
 		return jFormattedTextField0;
@@ -143,7 +144,7 @@ public class StudentForm extends JPanel {
 			jButton2 = new JButton();
 			jButton2.setText("Clear Fields");
 			jButton2.addMouseListener(new MouseAdapter() {
-	
+
 				public void mouseClicked(MouseEvent event) {
 					jButton2MouseMouseClicked(event);
 				}
@@ -180,8 +181,8 @@ public class StudentForm extends JPanel {
 			}
 
 			jComboBox2.setDoubleBuffered(false);
-			
-			
+
+
 		}
 		return jComboBox2;
 	}
@@ -352,7 +353,7 @@ public class StudentForm extends JPanel {
 	private JTextField getJTextField17() {
 		if (jTextField17 == null) {
 			jTextField17 = new JTextField();
-			
+
 		}
 		return jTextField17;
 	}
@@ -360,7 +361,7 @@ public class StudentForm extends JPanel {
 	private JTextField getJTextField16() {
 		if (jTextField16 == null) {
 			jTextField16 = new JTextField();
-			
+
 		}
 		return jTextField16;
 	}
@@ -368,31 +369,31 @@ public class StudentForm extends JPanel {
 	private JTextField getJTextField15() {
 		if (jTextField15 == null) {
 			jTextField15 = new JTextField();
-			
+
 		}
 		return jTextField15;
 	}
 
 	private JTextField getJTextField14() {
 		if (jTextField14 == null) {
-			
+
 			try {
-				
+
 				jTextField14 = new JFormattedTextField(new MaskFormatter("#"));
-				
+
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}	
 		}
-		
+
 		return jTextField14;
 	}
 
 	private JTextField getJTextField7() {
 		if (jTextField7 == null) {
 			jTextField7 = new JTextField();
-			
+
 		}
 		return jTextField7;
 	}
@@ -400,7 +401,7 @@ public class StudentForm extends JPanel {
 	private JTextField getJTextField4() {
 		if (jTextField4 == null) {
 			jTextField4 = new JTextField();
-			
+
 		}
 		return jTextField4;
 	}
@@ -448,7 +449,7 @@ public class StudentForm extends JPanel {
 			jComboBox1 = new JComboBox();
 			jComboBox1.setModel(new DefaultComboBoxModel(new Object[] { "O +", "O -", "A +", "A -", "B +", "B -", "AB +", "AB -" }));
 			jComboBox1.setDoubleBuffered(false);
-			
+
 		}
 		return jComboBox1;
 	}
@@ -458,7 +459,7 @@ public class StudentForm extends JPanel {
 			jComboBox0 = new JComboBox();
 			jComboBox0.setModel(new DefaultComboBoxModel(new Object[] { "MALE","FEMALE" }));
 			jComboBox0.setDoubleBuffered(false);
-		
+
 		}
 		return jComboBox0;
 	}
@@ -578,7 +579,7 @@ public class StudentForm extends JPanel {
 	private JTextField getJTextField13() {
 		if (jTextField13 == null) {
 			jTextField13 = new JTextField();
-			
+
 		}
 		return jTextField13;
 	}
@@ -586,7 +587,7 @@ public class StudentForm extends JPanel {
 	private JTextField getJTextField12() {
 		if (jTextField12 == null) {
 			jTextField12 = new JTextField();
-			
+
 		}
 		return jTextField12;
 	}
@@ -594,7 +595,7 @@ public class StudentForm extends JPanel {
 	private JTextField getJTextField11() {
 		if (jTextField11 == null) {
 			jTextField11 = new JTextField();
-			
+
 		}
 		return jTextField11;
 	}
@@ -602,7 +603,7 @@ public class StudentForm extends JPanel {
 	private JTextField getJTextField10() {
 		if (jTextField10 == null) {
 			jTextField10 = new JTextField();
-			
+
 		}
 		return jTextField10;
 	}
@@ -617,7 +618,7 @@ public class StudentForm extends JPanel {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 		return jTextField9;
 	}
@@ -634,7 +635,7 @@ public class StudentForm extends JPanel {
 				e.printStackTrace();
 			}
 
-			
+
 		}
 		return jTextField8;
 	}
@@ -650,12 +651,12 @@ public class StudentForm extends JPanel {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 		return jTextField6;
 	}
 
-	
+
 	private JXDatePicker getDatePicker() {
 		if (datePicker == null) {
 			datePicker = new JXDatePicker(new Date());
@@ -673,7 +674,7 @@ public class StudentForm extends JPanel {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
 		return jTextField3;
 	}
@@ -681,7 +682,7 @@ public class StudentForm extends JPanel {
 	private JTextField getJTextField2() {
 		if (jTextField2 == null) {
 			jTextField2 = new JTextField();
-			
+
 		}
 		return jTextField2;
 	}
@@ -689,7 +690,7 @@ public class StudentForm extends JPanel {
 	private JTextField getJTextField1() {
 		if (jTextField1 == null) {
 			jTextField1 = new JTextField();
-			
+
 		}
 		return jTextField1;
 	}
@@ -734,8 +735,8 @@ public class StudentForm extends JPanel {
 
 	private void jButton0MouseMouseClicked(MouseEvent event) {
 
-		if(Utilities.isNotEmptyFields(jTextField1,jTextField10,jTextField11,jTextField12,jTextField13,jTextField14,jTextField15,jTextField16,jTextField17,jTextField2,jTextField3,jTextField4,jTextField6,jTextField7,jTextField8,jTextField9,jFormattedTextField0)){
-			
+		if(validateStudentInputs()){
+
 			try {
 
 				if (new StudentDAO().registerStudent(this)) {
@@ -754,12 +755,11 @@ public class StudentForm extends JPanel {
 				JOptionPane.showMessageDialog(null, Error.STUDENT_REGSISTRATION_FAILED);
 			}
 
-			
+
 		} else {
-			
-			JOptionPane.showMessageDialog(null, "Required Fields Cannot Be Left Blank!!");
+
+			// DO NOTHING EXCEPTIONS ARE HANDLED IN METHOD!!
 		}
-		
 	}
 
 	private void jButton1MouseMouseClicked(MouseEvent event) {
@@ -801,39 +801,22 @@ public class StudentForm extends JPanel {
 
 	public void updateQualificationData() {
 
-		if(Utilities.isNotEmptyFields(jTextField4,jTextField15,jTextField16,jTextField7,jTextField14,jTextField17)){
-		
-			if(Integer.parseInt(jTextField17.getText()) < Integer.parseInt(jTextField16.getText()) ){
-				
-				if (isNewEntry(jTextField4.getText())) {
+		if(validateQualificatioInputs()){
 
-					Qualification qualification = new Qualification();
-					qualification.setTitle(jTextField4.getText());
-					qualification.setInstitute(jTextField7.getText());
-					qualification.setDuration(Integer.parseInt(jTextField14.getText()));
-					qualification.setYearOfPassing(jTextField15.getText());
-					qualification.setTotalMarks(Integer.parseInt(jTextField16.getText()));
-					qualification.setObtainedMarks(Integer.parseInt(jTextField17.getText())); 
-					qualification.setPercentage((Double.valueOf(jTextField17.getText()) / Double.valueOf(jTextField16.getText()))*100);
+			Qualification qualification = new Qualification();
+			qualification.setTitle(jTextField4.getText());
+			qualification.setInstitute(jTextField7.getText());
+			qualification.setDuration(Integer.parseInt(jTextField14.getText()));
+			qualification.setYearOfPassing(jTextField15.getText());
+			qualification.setTotalMarks(Integer.parseInt(jTextField16.getText()));
+			qualification.setObtainedMarks(Integer.parseInt(jTextField17.getText())); 
+			qualification.setPercentage((Double.valueOf(jTextField17.getText()) / Double.valueOf(jTextField16.getText()))*100);
 
-					qualificationData.add(qualification);
+			qualificationData.add(qualification);
 
-				} else {
-
-					JOptionPane.showMessageDialog(null, jTextField4.getText()+" ALREADY ADDED!!!");
-
-				}
-				
-			} else {
-				
-				JOptionPane.showMessageDialog(null, "Total Marks Cannot Be Less Than Obtained Marks!!");
-			}
-		
-			
 		} else {
-			
-			JOptionPane.showMessageDialog(null, "Please Enter All Educational Information!");
-			
+
+			// DON NOTHING
 		}
 
 	}
@@ -864,13 +847,13 @@ public class StudentForm extends JPanel {
 	}
 
 	private void jButton2MouseMouseClicked(MouseEvent event) {
-		
+
 		clearFields();
-		
+
 	}
-	
+
 	public void clearFields() {
-		
+
 		jFormattedTextField0.setText("");
 		jTextField1.setText("");
 		jTextField2.setText("");
@@ -882,16 +865,95 @@ public class StudentForm extends JPanel {
 		jTextField11.setText("");
 		jTextField12.setText("");
 		jTextField13.setText("");
-
 		jTextField4.setText("");
 		jTextField7.setText("");
 		jTextField14.setText("");
 		jTextField15.setText("");
 		jTextField16.setText("");
 		jTextField17.setText("");	
-		
+
 		jTable0.setModel(new DefaultTableModel(null,QUALIFICATION_COLUMN));
-		
+
 	}
 
+	public boolean validateStudentInputs(){
+
+		if(Utilities.isNotEmptyFields(jTextField1,jTextField10,jTextField11,jTextField12,jTextField13,jTextField2,jTextField3,jTextField6,jTextField8,jTextField9,jFormattedTextField0)){
+
+			if(EmailValidator.validate(jTextField13.getText())){
+
+				if(Utilities.invalidCharacters(jTextField1,jTextField2,jTextField10,jTextField12)){
+
+
+				} else {
+
+					JOptionPane.showMessageDialog(null, "PLEASE REMOVE INVALID CHARACTERS !!");
+					return false;
+				}
+
+			} else {
+
+				JOptionPane.showMessageDialog(null, "EMAIL ID NOT VALID !!");
+				return false;
+			}
+
+		} else {
+
+			JOptionPane.showMessageDialog(null, "REQUIRED FIELDS CAN'T BE LEFT BLANK!!");
+			return false;
+		}
+
+		return true;
+	}
+
+	public boolean validateQualificatioInputs(){
+
+		if(Utilities.isNotEmptyFields(jTextField4,jTextField15,jTextField16,jTextField7,jTextField14,jTextField17)){
+
+			if(Utilities.invalidCharacters(jTextField4,jTextField15,jTextField16,jTextField7,jTextField14,jTextField17)){
+
+				if(Utilities.checkCharacters(jTextField15,jTextField16,jTextField17)){
+
+					if (isNewEntry(jTextField4.getText())) {
+
+						if(Integer.parseInt(jTextField17.getText()) < Integer.parseInt(jTextField16.getText()) ){
+
+
+						} else {
+
+							JOptionPane.showMessageDialog(null, "TOTAL MARKS CAN'T BE LESS THAN OBTAINED MARKS!!");
+							return false;
+						}
+
+					} else {
+
+						JOptionPane.showMessageDialog(null, jTextField4.getText()+" ALREADY ADDED!!!");
+						return false;
+					}
+
+
+				} else {
+
+					JOptionPane.showMessageDialog(null, "CHARACTERS NOT ALLOWED !!");
+					return false;
+
+				}
+
+			} else {
+
+				JOptionPane.showMessageDialog(null, "PLEASE REMOVE INVALID CHARACTERS !!");
+				return false;
+
+			}
+
+		} else {
+
+			JOptionPane.showMessageDialog(null, "PLEASE ENTER COMPLETE EDUCATIONAL INFO!!");
+			return false;
+		}
+
+
+		return true;
+	}
+	
 }

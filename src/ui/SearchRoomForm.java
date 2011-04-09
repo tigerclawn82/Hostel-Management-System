@@ -28,6 +28,8 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 
+import utilities.Utilities;
+
 import bean.Room;
 import dao.RoomDAO;
 
@@ -196,6 +198,7 @@ public class SearchRoomForm extends JPanel {
 	protected JTextField getJTextField1() {
 		if (jTextField1 == null) {
 			jTextField1 = new JTextField();
+			jTextField1.setEditable(false);
 		}
 		return jTextField1;
 	}
@@ -232,6 +235,7 @@ public class SearchRoomForm extends JPanel {
 	private JTextArea getJTextArea0() {
 		if (jTextArea0 == null) {
 			jTextArea0 = new JTextArea();
+			jTextArea0.setEditable(false);
 		}
 		return jTextArea0;
 	}
@@ -335,7 +339,14 @@ public class SearchRoomForm extends JPanel {
 
 	public void searchByNO() {
 
-		searchByNO(Integer.parseInt(jTextField0.getText()));
+		if(validateSearchInput()){
+			
+			searchByNO(Integer.parseInt(jTextField0.getText()));
+			
+		} else {
+			
+			// DO NOTHING
+		}
 
 	}
 
@@ -405,7 +416,27 @@ public class SearchRoomForm extends JPanel {
 			searchByNO(Integer.parseInt(jSpinner0.getValue().toString()));
 
 		}
+	}
 
+	public boolean validateSearchInput(){
+
+		if(Utilities.checkCharacters(jTextField0)){
+
+			if(Utilities.invalidCharacters(jTextField0)){
+
+			} else {
+
+				JOptionPane.showMessageDialog(null, "INVALID CHARACTERS ARE NOT ALLOWED !!");
+				return false;
+			}
+
+		} else {
+
+			JOptionPane.showMessageDialog(null, "SORRY ALPHABET ARE NOT ALLOWED");
+			return false;
+		}
+
+		return true;
 	}
 
 }

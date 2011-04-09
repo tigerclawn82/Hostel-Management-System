@@ -907,6 +907,7 @@ public class SearchStudentForm extends JPanel {
 			} else {
 
 				searchByID();
+				setEditableFalse();
 
 			}
 
@@ -919,6 +920,7 @@ public class SearchStudentForm extends JPanel {
 			} else {
 
 				searchByNIC();
+				setEditableFalse();
 
 			}
 
@@ -931,6 +933,7 @@ public class SearchStudentForm extends JPanel {
 			} else {
 
 				searchByName();
+				setEditableFalse();
 
 			}
 
@@ -943,6 +946,7 @@ public class SearchStudentForm extends JPanel {
 			} else {
 
 				searchByFatherName();
+				setEditableFalse();
 
 			}
 
@@ -1318,6 +1322,7 @@ public class SearchStudentForm extends JPanel {
 
 			searchByID(studentID[0].toString());
 			jSpinner0.setModel(new SpinnerNumberModel(1, 1, studentID.length, 1));
+			setEditableFalse();
 
 		}
 
@@ -1363,7 +1368,26 @@ public class SearchStudentForm extends JPanel {
 			hidePager();
 
 		}
-		
+	}
+	
+	public void setEditableFalse(){
+	
+		jTextField10.setEditable(false);
+		jTextField11.setEditable(false);
+		jTextField12.setEditable(false);
+		jTextField13.setEditable(false);
+		jTextField14.setEditable(false);
+		jTextField15.setEditable(false);
+		jTextField16.setEditable(false);
+		jTextField17.setEditable(false);
+		jTextField18.setEditable(false);
+		jTextField19.setEditable(false);
+		jTextField20.setEditable(false);
+		jTextField3.setEditable(false);
+		jTextField4.setEditable(false);
+		jTextField7.setEditable(false);
+		jTextField8.setEditable(false);
+		jTextField9.setEditable(false);
 	}
 
 }

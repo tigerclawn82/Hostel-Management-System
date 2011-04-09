@@ -58,7 +58,7 @@ public class ServiceForm extends JPanel {
 			jButton0 = new JButton();
 			jButton0.setText("SAVE");
 			jButton0.addMouseListener(new MouseAdapter() {
-	
+
 				public void mouseClicked(MouseEvent event) {
 					jButton0MouseMouseClicked(event);
 				}
@@ -116,7 +116,7 @@ public class ServiceForm extends JPanel {
 			jComboBox0.setDoubleBuffered(false);
 			jComboBox0.setBorder(null);
 		}
-		
+
 		return jComboBox0;
 	}
 
@@ -136,20 +136,20 @@ public class ServiceForm extends JPanel {
 
 	private void jButton0MouseMouseClicked(MouseEvent event) {
 		
-		if(Utilities.isNotEmptyFields(jTextField0,jTextField1)){
+		if(validateInputs()){
 			
 			try {
-				
+
 				if (new ServiceDAO().registerService(this)) {
-					
+
 					JOptionPane.showMessageDialog(null, Success.SERVICE_REGSISTRATION_SUCCESS);
-					
+
 				} else {
-					
+
 					JOptionPane.showMessageDialog(null, Error.SERVICE_REGISTRATION_FAILED);
-					
+
 				}
-				
+
 			} catch (Exception e) {
 				// TODO: handle exception
 				e.printStackTrace();
@@ -157,8 +157,38 @@ public class ServiceForm extends JPanel {
 			
 		} else {
 			
-			JOptionPane.showMessageDialog(null, "Required Fields Cannot Be Left Blank!!");
-			
+			// DO NOTHING
 		}
+
 	}
+
+	public boolean validateInputs(){
+
+		if(Utilities.isNotEmptyFields(jTextField0,jTextField1)){
+
+			if(Utilities.invalidCharacters(jTextField0,jTextField1)){
+
+				if(Utilities.checkCharacters(jTextField1)){
+
+				} else {
+
+					JOptionPane.showMessageDialog(null, "CHARACTERS NOT ALLOWED IN CHARGES FIELD!!");
+					return false;
+				}
+
+			} else {
+
+				JOptionPane.showMessageDialog(null, "INVALID CHARACTERS NOT ALLOWED!!");
+				return false;
+			}
+
+		} else {
+
+			JOptionPane.showMessageDialog(null, "REQUIRED FIEDLS CAN'T BE LEFT BLANK!!");
+			return false;
+		}
+
+		return true;
+	}
+
 }
