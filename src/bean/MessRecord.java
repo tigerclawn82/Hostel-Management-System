@@ -16,15 +16,15 @@ import lombok.NoArgsConstructor;
 @DatabaseTable(tableName="MESS_RECORD")
 public class MessRecord {
 	
-	@DatabaseField(columnName="MR_ID",canBeNull=false,generatedId=true)
+	@DatabaseField(columnName="M_ID",canBeNull=false,generatedId=true)
 	private int id;
-	@DatabaseField(columnName="MR_DATE",canBeNull=false)
+	@DatabaseField(columnName="M_DATE",canBeNull=false)
 	private Date date;
-	@DatabaseField(columnName="MR_TYPE",canBeNull=false)
+	@DatabaseField(columnName="M_TYPE",canBeNull=false)
 	private String type;
-	@DatabaseField(columnName="MR_STATUS",canBeNull=false)
+	@DatabaseField(columnName="M_STATUS",canBeNull=false)
 	private boolean status;
-	@DatabaseField(columnName="MR_CHARGES",canBeNull=false)
+	@DatabaseField(columnName="M_CHARGES",canBeNull=false)
 	private int charges;
 	
 	/*

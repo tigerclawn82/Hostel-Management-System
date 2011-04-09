@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.Date;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -14,13 +16,13 @@ import lombok.NoArgsConstructor;
 @DatabaseTable(tableName="FINE_RECORD")
 public class FineRecord {
 	
-	@DatabaseField(columnName="FR_ID",canBeNull=false,generatedId=true)
+	@DatabaseField(columnName="F_ID",canBeNull=false,generatedId=true)
 	private int id;
-	@DatabaseField(columnName="FR_DATE",canBeNull=false)
-	private String date;
-	@DatabaseField(columnName="FR_REASON",canBeNull=false)
+	@DatabaseField(columnName="F_GDATE",canBeNull=false)
+	private Date date;
+	@DatabaseField(columnName="F_REASON",canBeNull=false)
 	private String reason;
-	@DatabaseField(columnName="FR_CHARGES",canBeNull=false)
+	@DatabaseField(columnName="F_CHARGES",canBeNull=false)
 	private int charges;
 	
 	/*
@@ -28,5 +30,11 @@ public class FineRecord {
 	 */
 	@DatabaseField(columnName="STD_ID",canBeNull=false,foreign=true,foreignAutoRefresh=true)
 	private Student student;
+	
+	/*
+	 * RELATIONSHIP WITH BILL_RECORD	
+	 */
+	@DatabaseField(columnName="B_ID",canBeNull=true,foreign=true,foreignAutoRefresh=true)
+	private BillingRecord billingRecord;
 	
 }

@@ -25,5 +25,11 @@ public class ServiceBill {
 	private Student student;
 	@DatabaseField(columnName="S_TITLE",canBeNull=false,foreign=true,foreignAutoRefresh=true)
 	private Service service;
-	
+
+	/*
+	 * RELATIONSHIP WITH BILL
+	 */
+	@DatabaseField(columnName="B_ID",canBeNull=true,foreign=true,foreignAutoRefresh=true)
+	private BillingRecord billingRecord;
+
 }
