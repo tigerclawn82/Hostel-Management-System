@@ -70,7 +70,7 @@ public class MAIN extends JFrame {
 				MAIN frame = new MAIN();
 				frame.setDefaultCloseOperation(MAIN.EXIT_ON_CLOSE);
 				frame.setTitle("MAIN");
-				frame.setContentPane(new JScrollPane(new RoomForm()));
+				frame.setContentPane(new JScrollPane(new MessRecordForm()));
 				frame.getContentPane().setPreferredSize(frame.getSize());
 				frame.pack();
 				frame.setLocationRelativeTo(null);

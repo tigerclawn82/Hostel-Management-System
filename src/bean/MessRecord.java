@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @DatabaseTable(tableName="MESS_RECORD")
 public class MessRecord {
 	
-	@DatabaseField(columnName="M_ID",canBeNull=false,generatedId=true)
+	@DatabaseField(columnName="M_ID",generatedId=true,canBeNull=false)
 	private int id;
 	@DatabaseField(columnName="M_DATE",canBeNull=false)
 	private Date date;

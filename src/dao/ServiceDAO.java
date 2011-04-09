@@ -1,6 +1,7 @@
 package dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import db.DataSource;
 
@@ -66,6 +67,37 @@ public class ServiceDAO extends DAO<Service, String>{
 		}
 
 		return false;
+	}
+	
+	public static Service getServiceByTitle(String title) {
+		
+		try {
+
+			List<Service> queryForAll = new ServiceDAO().queryForAll();
+			if (queryForAll!=null) {
+				
+				for (Service service : queryForAll) {
+					
+					if (service.getTitle().equalsIgnoreCase(title)) {
+						
+						return service;
+						
+					}
+					
+				}
+				
+			}
+
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+
+		} finally {
+
+			DataSource.closeConnection();
+		}
+		
+		return null;
 	}
 
 }

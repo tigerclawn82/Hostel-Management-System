@@ -2,10 +2,11 @@ package ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
@@ -16,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.text.MaskFormatter;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
@@ -24,7 +24,6 @@ import org.dyno.visual.swing.layouts.Leading;
 import org.jdesktop.swingx.JXDatePicker;
 
 import utilities.Utilities;
-
 import dao.MessRecordDAO;
 import dao.StudentDAO;
 
@@ -44,6 +43,8 @@ public class MessRecordForm extends JPanel {
 	private JLabel jLabel3;
 	private JLabel jLabel4;
 	public JXDatePicker datePicker;
+	
+	private boolean studentExist = false;
 
 	public MessRecordForm() {
 		initComponents();
@@ -69,9 +70,15 @@ public class MessRecordForm extends JPanel {
 		if (jTextField0 == null) {
 			jTextField0 = new JTextField();
 			jTextField0.addActionListener(new ActionListener() {
-
+	
 				public void actionPerformed(ActionEvent event) {
 					jTextField0ActionActionPerformed(event);
+				}
+			});
+			jTextField0.addFocusListener(new FocusAdapter() {
+	
+				public void focusLost(FocusEvent event) {
+					jTextField0FocusFocusLost(event);
 				}
 			});
 		}
@@ -145,7 +152,7 @@ public class MessRecordForm extends JPanel {
 			jComboBox1 = new JComboBox();
 			jComboBox1.setModel(new DefaultComboBoxModel(new Object[] { "Open", "Close",}));
 			jComboBox1.setDoubleBuffered(false);
-			jComboBox1.setBorder(null);
+			jComboBox1.setEditable(false);
 		}
 		return jComboBox1;
 	}
@@ -155,7 +162,7 @@ public class MessRecordForm extends JPanel {
 			jComboBox0 = new JComboBox();
 			jComboBox0.setModel(new DefaultComboBoxModel(new Object[] { "Breakfast", "Lunch", "Dinner", }));
 			jComboBox0.setDoubleBuffered(false);
-			jComboBox0.setBorder(null);
+			jComboBox0.setEditable(false);
 		}
 		return jComboBox0;
 	}
@@ -165,24 +172,6 @@ public class MessRecordForm extends JPanel {
 			datePicker = new JXDatePicker(new Date());
 		}
 		return datePicker;
-	}
-
-	private JTextField getJTextField1() {
-		if (jTextField1 == null) {
-			try {
-
-				jTextField1 = new JFormattedTextField(new MaskFormatter("##/##/####"));
-
-			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-		}
-
-		jTextField1.setVisible(false);
-
-		return jTextField1;
 	}
 
 	private void jButton0MouseMouseClicked(MouseEvent event) {
@@ -216,9 +205,11 @@ public class MessRecordForm extends JPanel {
 
 	public void studentIDCheck() {
 
+		studentExist = StudentDAO.isStudentIDExist(jTextField0.getText());
+		
 		try {
 
-			if (new StudentDAO().isStudentIDExist(jTextField0.getText())) {
+			if (studentExist) {
 
 				JOptionPane.showMessageDialog(null, "STUDENT ID EXIST!");
 
@@ -239,7 +230,11 @@ public class MessRecordForm extends JPanel {
 	private void jTextField0ActionActionPerformed(ActionEvent event) {
 
 		studentIDCheck();
+	}
 
+	private void jTextField0FocusFocusLost(FocusEvent event) {
+		
+		studentIDCheck();
 	}
 
 }

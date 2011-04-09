@@ -57,6 +57,8 @@ public class MessRecordDAO extends DAO<MessRecord, Integer> {
 			try {
 
 				record.setStudent(student);
+				record.setService(ServiceDAO.getServiceByTitle("Mess"));
+				record.setBillingRecord(null);
 				return new MessRecordDAO().create(record)==1;
 				
 			} catch (Exception e) {
