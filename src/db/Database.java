@@ -12,15 +12,17 @@ public class Database {
 	private static String URL = "jdbc:h2:/"+System.getProperty("user.dir")+"/HMS;AUTO_SERVER=TRUE;MODE=MSSQLServer";
 	private static Connection connection = null;
 	private static Statement statement = null;
-	private static PreparedStatement pStatement = null;
 
 	public static PreparedStatement getPreparedStatement(String sql) {
+
+		PreparedStatement pStatement = null;
 
 		if (openConnection()) {
 
 			try {
 
-				pStatement = connection.prepareStatement(sql);
+				pStatement = connection.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE, 
+						ResultSet.CONCUR_UPDATABLE);
 
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -62,7 +64,7 @@ public class Database {
 
 		return true;
 	}
-	
+
 	public static boolean openConnection(boolean autoCommit){
 
 		if (connection==null) {
@@ -121,7 +123,8 @@ public class Database {
 
 				statement = connection.createStatement();
 
-				return statement.execute(sql);
+				statement.execute(sql);
+				return true;
 
 			} else {
 
@@ -148,7 +151,8 @@ public class Database {
 
 			if (openConnection()) {
 
-				return pStatement.execute();
+				pStatement.execute();
+				return true;
 
 			} else {
 
@@ -206,6 +210,43 @@ public class Database {
 		return dataSet;
 	}
 
+	public static Object[][] executeSelect(PreparedStatement pStatement){
+
+		Object[][] dataSet = null;
+
+		try {
+
+			ResultSet result = selectExecutor(pStatement);
+			result.last();
+			int rows = result.getRow();
+			result.absolute(0);
+			int columns = result.getMetaData().getColumnCount();
+			dataSet = new Object[rows][columns];
+
+			for (int i = 0; result.next(); i++) {
+
+				for (int j = 0; j < columns; j++) {
+
+					dataSet[i][j] = result.getString(j+1);
+
+				}
+
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return null;
+
+		} finally {
+
+			closeConnection();
+
+		}
+
+		return dataSet;
+	}
+
 	public static ResultSet selectExecutor(String sql){
 
 		try {
@@ -230,7 +271,30 @@ public class Database {
 
 		} 
 
-	}	
+	}
+
+	public static ResultSet selectExecutor(PreparedStatement pStatement){
+
+		try {
+
+			if (openConnection()) {
+
+				return pStatement.executeQuery();
+
+			} else {
+
+				return null;
+
+			}
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			return null;
+
+		} 
+
+	}
 
 	public static boolean executeUpdate(String sql){
 

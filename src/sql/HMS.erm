@@ -11,7 +11,7 @@
 	</page_setting>
 	<category_index>0</category_index>
 	<zoom>1.0</zoom>
-	<x>163</x>
+	<x>175</x>
 	<y>91</y>
 	<default_color>
 		<r>128</r>
@@ -108,7 +108,7 @@
 			</connections>
 			<display>false</display>
 			<creation_date>2011-04-05 00:07:53</creation_date>
-			<updated_date>2011-04-09 20:35:31</updated_date>
+			<updated_date>2011-04-10 15:45:19</updated_date>
 			<model_property>
 				<name>Project Name</name>
 				<value></value>
@@ -2026,7 +2026,7 @@
 					<default_value></default_value>
 					<auto_increment>false</auto_increment>
 					<foreign_key>true</foreign_key>
-					<not_null>true</not_null>
+					<not_null>false</not_null>
 					<primary_key>false</primary_key>
 					<unique_key>false</unique_key>
 					<sequence>

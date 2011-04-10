@@ -23,8 +23,8 @@ import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 import org.jdesktop.swingx.JXDatePicker;
 
+import utilities.MessUtilities;
 import utilities.Utilities;
-import dao.MessRecordDAO;
 import dao.StudentDAO;
 
 //VS4E -- DO NOT REMOVE THIS LINE!
@@ -54,10 +54,10 @@ public class MessRecordForm extends JPanel {
 		setLayout(new GroupLayout());
 		add(getJTextField0(), new Constraints(new Leading(152, 129, 10, 10), new Leading(26, 26, 10, 10)));
 		add(getDatePicker(), new Constraints(new Leading(152, 129, 10, 10), new Leading(71, 26, 12, 12)));
-		add(getJComboBox0(), new Constraints(new Leading(152, 128, 10, 10), new Leading(115, 12, 12)));
-		add(getJComboBox1(), new Constraints(new Leading(152, 128, 10, 10), new Leading(158, 12, 12)));
+		add(getJComboBox0(), new Constraints(new Leading(152, 129, 10, 10), new Leading(115, 26, 12, 12)));
+		add(getJComboBox1(), new Constraints(new Leading(152, 129, 10, 10), new Leading(158, 26, 12, 12)));
 		add(getJTextField2(), new Constraints(new Leading(152, 129, 10, 10), new Leading(201, 26, 12, 12)));
-		add(getJButton0(), new Constraints(new Leading(219, 10, 10), new Leading(250, 10, 10)));
+		add(getJButton0(), new Constraints(new Leading(219, 10, 10), new Leading(250, 26, 10, 10)));
 		add(getJLabel0(), new Constraints(new Leading(60, 10, 10), new Leading(32, 12, 12)));
 		add(getJLabel1(), new Constraints(new Leading(60, 58, 10, 10), new Leading(76, 12, 12)));
 		add(getJLabel2(), new Constraints(new Leading(60, 58, 10, 10), new Leading(119, 12, 12)));
@@ -180,13 +180,13 @@ public class MessRecordForm extends JPanel {
 
 			try {
 
-				if (new MessRecordDAO().addMessRecord(this)) {
+				if (MessUtilities.addMessRecord(this)) {
 
-					JOptionPane.showMessageDialog(null, "MESS RECORED ADDED!");
+					JOptionPane.showMessageDialog(null, "Mess Record added Successfully for Student: "+jTextField0.getText());
 
 				} else {
 
-					JOptionPane.showMessageDialog(null, "FAILED! CHECK THE FORM AGAIN!");
+					JOptionPane.showMessageDialog(null, "Sorry! Check the Form again!");
 
 				}
 

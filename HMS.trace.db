@@ -311,3 +311,45 @@ ALTER TABLE QUALIFICATION
   REFERENCES STUDENT (STD_ID)
 
 COMMIT [42000-150]
+04-10 15:04:49 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLException: Table "BILL_RECORD" not found; SQL statement:
+ALTER TABLE MESS_RECORD
+	ADD FOREIGN KEY (B_ID)
+	REFERENCES BILL_RECORD (B_ID)
+	ON UPDATE RESTRICT
+	ON DELETE RESTRICT [42102-150]
+04-10 15:59:48 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Sequence "SYSTEM_SEQUENCE_049D85CA_A00F_447B_A84E_5064BE695EE9" belongs to a table; SQL statement:
+DROP SEQUENCE PUBLIC.SYSTEM_SEQUENCE_049D85CA_A00F_447B_A84E_5064BE695EE9 [90082-150]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.ddl.DropSequence.update(DropSequence.java:49)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:69)
+	at org.h2.command.Command.executeUpdate(Command.java:209)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:178)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:153)
+	at workbench.db.GenericObjectDropper.dropObjects(GenericObjectDropper.java:173)
+	at workbench.gui.dbobjects.ObjectDropperUI.doDrop(ObjectDropperUI.java:82)
+	at workbench.gui.dbobjects.ObjectDropperUI$6.run(ObjectDropperUI.java:421)
+04-10 16:14:39 jdbc[62]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT COUNT(*)
+FROM MESS_RECORD
+WHERE WHERE[*] M_DATE = '2011-04-10 00:00:00' AND S_TITLE = 'MESS' AND STD_ID = '121-ADAS-1213' ? AND M_TYPE = 'Breakfast'"; expected "NOT, EXISTS, SELECT, FROM"; SQL statement:
+SELECT COUNT(*)
+FROM MESS_RECORD
+WHERE WHERE M_DATE = '2011-04-10 00:00:00' AND S_TITLE = 'MESS' AND STD_ID = '121-ADAS-1213' ? AND M_TYPE = 'Breakfast' [42001-150]
+04-10 16:15:01 jdbc[62]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT COUNT(*)
+FROM MESS_RECORD
+WHERE M_DATE = '2011-04-10 00:00:00' AND S_TITLE = 'MESS' AND STD_ID = '121-ADAS-1213' ?[*] AND M_TYPE = 'Breakfast'"; SQL statement:
+SELECT COUNT(*)
+FROM MESS_RECORD
+WHERE M_DATE = '2011-04-10 00:00:00' AND S_TITLE = 'MESS' AND STD_ID = '121-ADAS-1213' ? AND M_TYPE = 'Breakfast' [42000-150]
+04-10 16:15:31 jdbc[62]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "SELECT COUNT(*)
+FROM MESS_RECORD
+WHERE M_DATE = '2011-04-10 00:00:00' AND S_TITLE = 'MESS' AND STD_ID = '121-ADAS-1213' ?[*] AND M_TYPE = 'Breakfast'"; SQL statement:
+SELECT COUNT(*)
+FROM MESS_RECORD
+WHERE M_DATE = '2011-04-10 00:00:00' AND S_TITLE = 'MESS' AND STD_ID = '121-ADAS-1213' ? AND M_TYPE = 'Breakfast' [42000-150]
