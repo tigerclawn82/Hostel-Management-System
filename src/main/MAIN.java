@@ -12,7 +12,6 @@ import org.pushingpixels.substance.api.skin.DustCoffeeSkin;
 import ui.BillingRecordForm;
 import ui.DeleteStudentForm;
 import ui.FineRecordForm;
-import ui.LoginForm;
 import ui.MendatoryServicesRegistrationForm;
 import ui.MessRecordForm;
 import ui.RoomDeleteForm;
