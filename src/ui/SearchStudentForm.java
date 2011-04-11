@@ -167,6 +167,7 @@ public class SearchStudentForm extends JPanel {
 	private JCheckBox getJCheckBox8() {
 		if (jCheckBox8 == null) {
 			jCheckBox8 = new JCheckBox();
+			jCheckBox8.setSelected(true);
 			jCheckBox8.setText("View All");
 			jCheckBox8.addItemListener(new ItemListener() {
 	

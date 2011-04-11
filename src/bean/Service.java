@@ -21,6 +21,6 @@ public class Service {
 	@DatabaseField(columnName="S_CHTYPE",canBeNull=false)
 	private String chargeType;
 	@DatabaseField(columnName="S_CHARGE",canBeNull=false)
-	private double charge;
+	private int charge;
 
 }

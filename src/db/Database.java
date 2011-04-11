@@ -9,7 +9,8 @@ import java.sql.Statement;
 
 public class Database {
 
-	private static String URL = "jdbc:h2:/"+System.getProperty("user.dir")+"/HMS;AUTO_SERVER=TRUE;MODE=MSSQLServer";
+	//private static String URL = "jdbc:h2:/"+System.getProperty("user.dir")+"/HMS;AUTO_SERVER=TRUE;MODE=MSSQLServer";
+	private static String URL = "jdbc:sqlserver://localhost:1433;user=sa;password=123456;database=HMS";
 	private static Connection connection = null;
 	private static Statement statement = null;
 

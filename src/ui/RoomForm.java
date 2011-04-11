@@ -18,9 +18,9 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
 
-import utilities.IconProcess;
+import utilities.FILTERS;
+import utilities.JTextFieldFilter;
 import utilities.Utilities;
-
 import dao.RoomDAO;
 
 //VS4E -- DO NOT REMOVE THIS LINE!
@@ -51,7 +51,7 @@ public class RoomForm extends JPanel {
 		add(getJLabel1(), new Constraints(new Leading(41, 54, 12, 12), new Leading(79, 12, 12)));
 		add(getJLabel2(), new Constraints(new Leading(41, 54, 12, 12), new Leading(125, 10, 10)));
 		add(getJScrollPane0(), new Constraints(new Leading(117, 115, 10, 10), new Leading(118, 83, 10, 10)));
-		add(getJButton0(), new Constraints(new Leading(170, 12, 12), new Leading(226, 24, 10, 10)));
+		add(getJButton0(), new Constraints(new Leading(118, 12, 12), new Leading(226, 24, 10, 10)));
 		add(getJLabel3(), new Constraints(new Leading(241, 75, 10, 10), new Leading(22, 54, 12, 12)));
 		setSize(335, 287);
 	}
@@ -80,6 +80,7 @@ public class RoomForm extends JPanel {
 	protected JTextField getJTextField1() {
 		if (jTextField1 == null) {
 			jTextField1 = new JTextField();
+			jTextField1.setDocument(JTextFieldFilter.filter(FILTERS.NUMERIC));
 		}
 		return jTextField1;
 	}
@@ -87,6 +88,7 @@ public class RoomForm extends JPanel {
 	protected JTextField getJTextField0() {
 		if (jTextField0 == null) {
 			jTextField0 = new JTextField();
+			jTextField0.setDocument(JTextFieldFilter.filter(FILTERS.NUMERIC));
 			jTextField0.addFocusListener(new FocusAdapter() {
 
 				public void focusLost(FocusEvent event) {
@@ -116,6 +118,7 @@ public class RoomForm extends JPanel {
 	private JTextArea getJTextArea0() {
 		if (jTextArea0 == null) {
 			jTextArea0 = new JTextArea();
+			jTextArea0.setDocument(JTextFieldFilter.filter(FILTERS.ALPHA_SPACE,FILTERS.NUMERIC));
 		}
 		return jTextArea0;
 	}

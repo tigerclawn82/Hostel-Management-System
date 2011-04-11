@@ -24,7 +24,7 @@ public class ServiceDAO extends DAO<Service, String>{
 		service.setTitle(form.jTextField0.getText());
 		service.setType(form.jComboBox0.getSelectedItem().toString());
 		service.setChargeType(form.jComboBox1.getSelectedItem().toString());
-		service.setCharge(Double.valueOf(form.jTextField1.getText()));
+		service.setCharge(Integer.parseInt(form.jTextField1.getText()));
 
 		try {
 
@@ -50,7 +50,7 @@ public class ServiceDAO extends DAO<Service, String>{
 		service.setTitle(form.jTextField0.getText());
 		service.setType(form.jComboBox0.getSelectedItem().toString());
 		service.setChargeType(form.jComboBox1.getSelectedItem().toString());
-		service.setCharge(Double.valueOf(form.jTextField1.getText()));
+		service.setCharge(Integer.parseInt(form.jTextField1.getText()));
 
 		try {
 

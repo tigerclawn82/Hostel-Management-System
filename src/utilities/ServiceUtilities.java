@@ -1,10 +1,7 @@
 package utilities;
 
 import java.sql.PreparedStatement;
-
 import javax.swing.DefaultListModel;
-
-import org.pushingpixels.substance.api.trait.SubstanceTraitInfo;
 
 import ui.ServiceRegistrationForm;
 import db.Database;
@@ -13,60 +10,49 @@ public class ServiceUtilities {
 
 	public static void main(String[] args) {
 
-		Object[] mendatoryServices = getMendatoryServices();
-
-		for (Object object : mendatoryServices) {
-
-			System.out.println(object);
-
-		}
-
+		
 	}
+	
+	public static Object[][] getServicesWithChargesForStudent(String studentID){
+		
+		Object[][] servicesWithCharges = null;
+	
+		Object[][] resultSet = Database.executeSelect("SELECT S_TITLE FROM STD_SER WHERE STD_ID = '"+studentID.toUpperCase()+"'");
+		servicesWithCharges = new Object[resultSet.length+1][2];
+		
+		for (int i = 0; i < resultSet.length; i++) {
+			
+			servicesWithCharges[i][0] = resultSet[i][0];
+			servicesWithCharges[i][1] = getChargesOfService(resultSet[i][0].toString());
+			
+		}
+		
+		servicesWithCharges[resultSet.length][0] = "Mess Bill";
+		servicesWithCharges[resultSet.length][1] = getMessChargesOfStudent(studentID);
+		
+		return servicesWithCharges;
+	}
+	
+	public static int getChargesOfService(String title) {
+		
+		Object[][] select = Database.executeSelect("SELECT S_CHARGE FROM SERVICE WHERE S_TITLE = '"+title+"'");
+		double no = Double.valueOf(select[0][0].toString());
+		
+		return (int) no;
+	}
+	
+	public static int getMessChargesOfStudent(String studentID) {
+		
+		int messCharges = 0;
+		Object[][] resultSet = Database.executeSelect("SELECT M_CHARGES FROM MESS_RECORD WHERE STD_ID = '"+studentID.toUpperCase()+"'");
 
-	public static Object[][] servicesWithAmount(String id){
+		for (int j = 0; j < resultSet.length; j++) {
 
-		Object[][] data = null;
-		Object[][] resultSet = null;
-		String query = null;
-
-		query = "SELECT S_TITLE FROM STD_SER WHERE STD_ID = '"+id.toUpperCase()+"'";
-		resultSet = Database.executeSelect(query);
-
-		data = new Object[resultSet.length][2];
-
-		for (int i = 0; i < data.length; i++) {
-
-			data[i][0] = resultSet[i][0];
+			messCharges += Integer.parseInt(resultSet[j][0].toString());
 
 		}
-
-		for (int i = 0; i < data.length; i++) {
-
-			if (data[i][0].toString().equalsIgnoreCase("Mess")) {
-
-				int messCharges = 0;
-				query = "SELECT MR_CHARGES FROM MESS_RECORD WHERE STD_ID = '"+id.toUpperCase()+"'";
-				resultSet = Database.executeSelect(query);
-
-				for (int j = 0; j < resultSet.length; j++) {
-
-					messCharges += Integer.parseInt(resultSet[j][0].toString());
-
-				}
-
-				data[i][1] = messCharges;
-
-			} else {
-
-				query = "SELECT S_CHARGE FROM SERVICE WHERE S_TITLE = '"+data[i][0]+"'";
-				resultSet = Database.executeSelect(query);
-				data[i][1] = resultSet[0][0];
-
-			}
-
-		}
-
-		return data;
+		
+		return messCharges;
 	}
 
 	public static Object[] selectedServicesOfStudent(String studentID) {

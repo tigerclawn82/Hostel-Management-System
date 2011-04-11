@@ -72,6 +72,8 @@ public class DeleteStudentForm extends JPanel {
 	public UpdateStudentForm getUpdateStudentForm0() {
 		if (updateStudentForm0 == null) {
 			updateStudentForm0 = new UpdateStudentFormExtension();
+			updateStudentForm0.getJButton2().setVisible(false);
+			updateStudentForm0.getJButton3().setVisible(false);
 		}
 		return updateStudentForm0;
 	}

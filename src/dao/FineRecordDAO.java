@@ -19,7 +19,7 @@ public class FineRecordDAO extends DAO<FineRecord, Integer> {
 	public boolean addFineRecord(FineRecordForm form) {
 
 		FineRecord record = new FineRecord();
-		record.setDate(form.jTextField1.getText());
+		record.setDate(form.getJxDatePicker().getDate());
 		record.setCharges(Integer.parseInt(form.jTextField2.getText()));
 		record.setReason(form.jTextArea0.getText());
 

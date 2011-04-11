@@ -7,15 +7,33 @@ import javax.swing.text.PlainDocument;
 public class JTextFieldFilter extends PlainDocument {
 
 	private static final long serialVersionUID = 1L;
-	
+
 
 	protected String acceptedChars = null;
 	protected boolean negativeAccepted = false;
 
+	public static JTextFieldFilter filter(String filter) {
+
+		return new JTextFieldFilter(filter);
+	}
+
+	public static JTextFieldFilter filter(String... filters) {
+
+		String allFilters = new String();
+
+		for (String filter : filters) {
+
+			allFilters +=filter;
+
+		}
+
+		return new JTextFieldFilter(allFilters);
+	}
+
 	public JTextFieldFilter() {
-		
+
 		this(FILTERS.ALPHA_SPACE);
-		
+
 	}
 
 	public JTextFieldFilter(String acceptedchars) {

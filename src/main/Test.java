@@ -2,6 +2,8 @@ package main;
 
 import java.sql.SQLException;
 
+import utilities.JTextFieldFilter;
+
 import annotation.ConstraintProcessor;
 import bean.BillingRecord;
 import bean.FineRecord;
@@ -22,7 +24,7 @@ public class Test {
 	public static void main(String[] args) {
 
 		//System.out.println(RoomDAO.isRoomExist(1));
-		tableCreator(MessRecord.class);
+		tableCreator(Student.class);
 
 	}
 	

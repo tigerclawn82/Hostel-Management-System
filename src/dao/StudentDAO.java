@@ -384,8 +384,8 @@ public class StudentDAO extends DAO<Student,String>{
 		
 		String studentID = form.jTextField0.getText();
 		int roomNo = Integer.parseInt(form.jComboBox2.getSelectedItem().toString());
-		String studentDelete = "DELETE FROM STUDENT WHERE STD_ID = '"+studentID+"'";
 		String servicesDelete = "DELETE FROM STD_SER WHERE STD_ID = '"+studentID+"'";
+		String studentDelete = "DELETE FROM STUDENT WHERE STD_ID = '"+studentID+"'";
 		
 		RoomDAO.removeStudentFromRoom(roomNo);
 		

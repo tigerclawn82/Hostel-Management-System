@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Date;
@@ -11,6 +13,7 @@ import java.util.Date;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -18,15 +21,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
 
-import org.dyno.visual.swing.layouts.Bilateral;
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
 import org.dyno.visual.swing.layouts.Leading;
-import org.dyno.visual.swing.layouts.Trailing;
 import org.jdesktop.swingx.JXDatePicker;
 
-import dao.FineRecordDAO;
+import utilities.FILTERS;
+import utilities.FineUtilities;
+import utilities.JTextFieldFilter;
 import dao.StudentDAO;
 
 //VS4E -- DO NOT REMOVE THIS LINE!
@@ -44,7 +48,6 @@ public class FineRecordForm extends JPanel {
 	public JTextArea jTextArea0;
 	private JScrollPane jScrollPane0;
 	private JPanel jPanel0;
-	private JButton jButton1;
 	private JLabel jLabel3;
 	private boolean studentExist = true;
 
@@ -54,12 +57,11 @@ public class FineRecordForm extends JPanel {
 
 	private void initComponents() {
 		setLayout(new GroupLayout());
-		add(getJPanel0(), new Constraints(new Bilateral(12, 12, 287), new Leading(75, 10, 10)));
 		add(getJLabel0(), new Constraints(new Leading(20, 10, 10), new Leading(29, 10, 10)));
-		add(getJButton0(), new Constraints(new Leading(269, 10, 10), new Leading(326, 12, 12)));
-		add(getJButton1(), new Constraints(new Trailing(12, 120, 120), new Leading(24, 10, 321)));
 		add(getJTextField0(), new Constraints(new Leading(99, 129, 10, 10), new Leading(24, 26, 10, 321)));
 		add(getJLabel3(), new Constraints(new Leading(237, 58, 10, 10), new Leading(29, 12, 12)));
+		add(getJButton0(), new Constraints(new Leading(274, 62, 10, 145), new Leading(326, 26, 12, 12)));
+		add(getJPanel0(), new Constraints(new Leading(12, 324, 10, 10), new Leading(75, 10, 10)));
 		setSize(350, 371);
 	}
 
@@ -68,20 +70,6 @@ public class FineRecordForm extends JPanel {
 			jLabel3 = new JLabel();
 		}
 		return jLabel3;
-	}
-
-	private JButton getJButton1() {
-		if (jButton1 == null) {
-			jButton1 = new JButton();
-			jButton1.setText("Check");
-			jButton1.addMouseListener(new MouseAdapter() {
-	
-				public void mouseClicked(MouseEvent event) {
-					jButton1MouseMouseClicked(event);
-				}
-			});
-		}
-		return jButton1;
 	}
 
 	private JPanel getJPanel0() {
@@ -111,18 +99,39 @@ public class FineRecordForm extends JPanel {
 	private JTextArea getJTextArea0() {
 		if (jTextArea0 == null) {
 			jTextArea0 = new JTextArea();
+			jTextArea0.setDocument(JTextFieldFilter.filter(FILTERS.ALPHA_SPACE,FILTERS.NUMERIC,"/-"));
 		}
 		return jTextArea0;
 	}
 
 	private JTextField getJTextField0() {
 		if (jTextField0 == null) {
-			jTextField0 = new JTextField();
+			
+			try {
+				
+				jTextField0 = new JFormattedTextField(new MaskFormatter("###-UUUU-####"));
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+			
+			
 			jTextField0.addActionListener(new ActionListener() {
 	
 				public void actionPerformed(ActionEvent event) {
 					jTextField0ActionActionPerformed(event);
 				}
+			});
+			
+			jTextField0.addFocusListener(new FocusAdapter() {
+				
+				@Override
+				public void focusLost(FocusEvent e) {
+					// TODO Auto-generated method stub
+					studentIDCheck();
+				}
+				
 			});
 		}
 		return jTextField0;
@@ -177,17 +186,17 @@ public class FineRecordForm extends JPanel {
 	private JTextField getJTextField2() {
 		if (jTextField2 == null) {
 			jTextField2 = new JTextField();
+			jTextField2.setDocument(JTextFieldFilter.filter(FILTERS.NUMERIC));
 		}
 		return jTextField2;
 	}
 	
 	private JXDatePicker jxDatePicker;
-	@SuppressWarnings("deprecation")
 	public JXDatePicker getJxDatePicker() {
 		
 		if (jxDatePicker==null) {
 			
-			jxDatePicker = new JXDatePicker(new Date("05/19/1990"));
+			jxDatePicker = new JXDatePicker(new Date());
 			
 		}
 		
@@ -196,21 +205,29 @@ public class FineRecordForm extends JPanel {
 
 	private void jButton0MouseMouseClicked(MouseEvent event) {
 
-		try {
+		if (studentExist) {
+			
+			try {
 
-			if (new FineRecordDAO().addFineRecord(this)) {
+				if (FineUtilities.addFineRecord(this)) {
 
-				JOptionPane.showMessageDialog(null, "FINE RECORED ADDED!");
+					JOptionPane.showMessageDialog(null, "FINE RECORED ADDED!");
 
-			} else {
+				} else {
 
-				JOptionPane.showMessageDialog(null, "FAILED! CHECK THE FORM AGAIN!");
+					JOptionPane.showMessageDialog(null, "FAILED! CHECK THE FORM AGAIN!");
 
+				}
+
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
 			}
+			
+		} else {
 
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
+			
+			
 		}
 
 	}
@@ -244,12 +261,6 @@ public class FineRecordForm extends JPanel {
 	}
 
 	private void jTextField0ActionActionPerformed(ActionEvent event) {
-		
-		studentIDCheck();
-		
-	}
-
-	private void jButton1MouseMouseClicked(MouseEvent event) {
 		
 		studentIDCheck();
 		

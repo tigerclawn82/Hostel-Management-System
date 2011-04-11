@@ -1,23 +1,18 @@
-package dao;
-
-import java.sql.SQLException;
-
-import db.DataSource;
+package utilities;
 
 import ui.BillingRecordForm;
-
 import bean.BillingRecord;
 import bean.Student;
+import dao.BillingRecordDAO;
+import dao.StudentDAO;
+import db.DataSource;
+import db.Database;
 
-public class BillingRecordDAO extends DAO<BillingRecord,Integer> {
-
-	public BillingRecordDAO() throws SQLException {
-		// TODO Auto-generated constructor stub
-		super(BillingRecord.class);
-	}
+public class BillUtitilities {
 	
-	public boolean addBillingRecord(BillingRecordForm form) {
+public boolean addBillingRecord(BillingRecordForm form) {
 		
+		Database.getPreparedStatement("INSERT INTO BILL_RECORD ");
 		Student student = null;
 		BillingRecord record = new BillingRecord();
 		record.setGenerationDate(form.datePicker.getDate());
@@ -69,5 +64,5 @@ public class BillingRecordDAO extends DAO<BillingRecord,Integer> {
 		
 		return false;
 	}
-	
+
 }

@@ -211,7 +211,7 @@ public class UpdateStudentForm extends JPanel {
 		return jButton4;
 	}
 
-	private JButton getJButton3() {
+	public JButton getJButton3() {
 		if (jButton3 == null) {
 			jButton3 = new JButton();
 			jButton3.setText("Update");
@@ -225,7 +225,7 @@ public class UpdateStudentForm extends JPanel {
 		return jButton3;
 	}
 
-	private JButton getJButton2() {
+	public JButton getJButton2() {
 		if (jButton2 == null) {
 			jButton2 = new JButton();
 			jButton2.setText("Add New");
